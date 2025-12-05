@@ -1,5 +1,7 @@
 # PRISM - Agentic RAG-Based Learning System
 
+PRISM: Personalized Retrieval-Integrated System for Multimodal Adaptive Learning
+
 PRISM is an adaptive learning application designed for students, leveraging an agentic retrieval-augmented generation (RAG) system to answer questions based on course materials or internet search when necessary.
 
 ## Features
@@ -46,6 +48,11 @@ PRISM Code/
 ├── app.py                          # Main Streamlit application
 ├── requirements.txt                # Python dependencies
 ├── .env.example                    # Environment variables template
+├── ui/                             # UI components
+│   ├── styling.py                  # Theme and CSS styling
+│   ├── sidebar.py                  # Sidebar components
+│   ├── chat.py                     # Chat interface
+│   └── session.py                  # Session management
 ├── config/                         # Configuration management
 ├── core/                           # Core agentic RAG logic
 ├── retrieval/                      # Vector store and retrieval
@@ -76,4 +83,3 @@ PRISM Code/
 ## License
 
 © PRISM Adaptive Learning System 2025 (UNT Dissertation POC)
-
