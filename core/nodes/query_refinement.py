@@ -91,7 +91,7 @@ EXAMPLES:
 - History: "Tell me about the agents" Answer: "There are 3 agents..." Question: "What are they?" → NOT vague (they = agents)
 - History: None, Question: "Who are the authors of the paper?" → VAGUE (no referent)
 
-If it is vague, provide 2-3 follow-up questions. If not vague, set follow_up_questions to an empty array."""
+If it is vague, provide ONLY ONE follow-up question that will help clarify the query. Ask the most important question first. If not vague, set follow_up_questions to an empty array."""
             
             response = self.client.chat.completions.create(
                 model=OPENAI_MODEL,
@@ -121,28 +121,48 @@ If it is vague, provide 2-3 follow-up questions. If not vague, set follow_up_que
     def refine_query(
         self,
         query: str,
-        follow_up_answer: str = ""
-    ) -> str:
+        follow_up_answer: str = "",
+        conversation_history: str = ""
+    ) -> Dict[str, Any]:
         """
-        Refine a query based on follow-up answer.
+        Refine a query based on follow-up answer and check if it's now clear.
         
         Args:
             query: Original query
             follow_up_answer: User's answer to follow-up question
+            conversation_history: Previous conversation context
             
         Returns:
-            Refined query
+            Dictionary with refined_query and is_clear flag
         """
         if not follow_up_answer:
-            return query
+            return {"refined_query": query, "is_clear": True}
         
         try:
+            # Combine original query with follow-up answer
+            combined_query = f"{query} {follow_up_answer}"
+            
+            # Check if the combined query is now clear
+            vagueness_check = self.check_vagueness(
+                query=combined_query,
+                conversation_history=conversation_history
+            )
+            
+            # If still vague, return the combined query but mark as not clear
+            if vagueness_check["is_vague"]:
+                return {
+                    "refined_query": combined_query,
+                    "is_clear": False,
+                    "follow_up_question": vagueness_check["follow_up_questions"][0] if vagueness_check["follow_up_questions"] else None
+                }
+            
+            # Query is now clear, refine it properly
             system_prompt = """You are a query refinement agent. Combine the original question with the follow-up answer to create a more specific, clear question."""
             
             user_prompt = f"""Original Question: {query}
 Follow-up Answer: {follow_up_answer}
 
-Create a refined, more specific question that incorporates both pieces of information."""
+Create a refined, more specific question that incorporates both pieces of information. Make it clear and specific."""
             
             response = self.client.chat.completions.create(
                 model=OPENAI_MODEL,
@@ -153,11 +173,17 @@ Create a refined, more specific question that incorporates both pieces of inform
                 temperature=0.3
             )
             
-            return response.choices[0].message.content.strip()
+            refined = response.choices[0].message.content.strip()
+            
+            return {
+                "refined_query": refined,
+                "is_clear": True,
+                "follow_up_question": None
+            }
             
         except Exception as e:
             logger.error(f"Error refining query: {e}")
-            return query
+            return {"refined_query": query, "is_clear": True}
 
 
 def query_refinement_node(state: Dict[str, Any]) -> Dict[str, Any]:
@@ -220,14 +246,16 @@ def query_refinement_node(state: Dict[str, Any]) -> Dict[str, Any]:
             result["follow_up_questions"] = []
     
     state["is_vague"] = result["is_vague"]
-    state["follow_up_questions"] = result["follow_up_questions"]
+    # Store only the first follow-up question (one at a time)
+    follow_up_questions = result.get("follow_up_questions", [])
+    state["follow_up_questions"] = [follow_up_questions[0]] if follow_up_questions else []
     state["current_node"] = "query_refinement"
     
     if state["is_vague"]:
-        # Need to ask follow-up questions
+        # Need to ask ONE follow-up question
         state["should_continue"] = False
         state["next_node"] = None
-        logger.info(f"Query is vague. Follow-up questions: {result['follow_up_questions']}")
+        logger.info(f"Query is vague. Asking follow-up question: {state['follow_up_questions'][0] if state['follow_up_questions'] else 'None'}")
     else:
         # Query is clear, proceed to relevance check
         state["refined_query"] = state["query"]

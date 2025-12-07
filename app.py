@@ -91,18 +91,17 @@ def generate_response(user_query):
             thread_id=thread_id
         )
         
-        # Handle follow-up questions
+        # Handle follow-up questions (one at a time)
         if result.get("needs_follow_up"):
             follow_up_questions = result.get("follow_up_questions", [])
             if follow_up_questions:
-                response = "I need a bit more information to help you better. Could you please clarify:\n\n"
-                for i, question in enumerate(follow_up_questions, 1):
-                    response += f"{i}. {question}\n"
-                response += "\nPlease provide answers to these questions so I can give you a more accurate response."
+                # Ask only the first question (one at a time)
+                follow_up_question = follow_up_questions[0] if follow_up_questions else "Could you please provide more details?"
+                response = f"I need a bit more information to help you better. {follow_up_question}"
                 
                 # Store follow-up state
                 st.session_state.follow_up_needed = True
-                st.session_state.follow_up_questions = follow_up_questions
+                st.session_state.follow_up_questions = [follow_up_question]  # Store single question
                 st.session_state.original_query = user_query
                 
                 return response

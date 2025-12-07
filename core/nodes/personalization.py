@@ -78,7 +78,14 @@ Student Background:
 {major_adaptation}
 
 Adapt your explanation to be {explanation_style}. Use examples and analogies that a {major} student would understand.
-Always cite your sources using the format [Source Name, Page X] or [Source Name, URL]."""
+
+CRITICAL CITATION FORMAT:
+- Use INLINE citations within your response text, NOT at the end
+- Format: (Document_Name, Page X) or (Source_Name, URL)
+- Place citations immediately after the information you're citing
+- Example: "The authors are John Doe and Jane Smith (NeuroQuest_Paper, Page 2)."
+- Do NOT create a separate citations section at the end
+- Integrate citations naturally into your response"""
             
             context_source = "Internet search results" if is_from_web else "Course materials"
             
@@ -165,7 +172,7 @@ Based on the {context_source.lower()} provided above, please provide a comprehen
 4. Explains concepts in a way they'll understand
 5. If the question asks for specific information (like counts, lists, names, agents, figures, tables), extract and provide ALL of that information from the context - be thorough and complete
 6. Review ALL sources provided to ensure you don't miss any information
-7. Includes all relevant citations
+7. Uses INLINE citations in the format (Document_Name, Page X) immediately after cited information - do NOT create a separate citations section
 
 CRITICAL INSTRUCTIONS:
 - The {context_source.lower()} above contains REAL information - USE IT to answer the question
@@ -294,19 +301,9 @@ CRITICAL INSTRUCTIONS:
                     filtered_citations = unique_citations
                     logger.info(f"Limited to top {len(filtered_citations)} citations (from {len(citations)} total) when no sources referenced")
             
-            # Format citations
-            citations_text = ""
-            if filtered_citations:
-                citations_text = "\n\n**Citations:**\n"
-                for citation in filtered_citations:
-                    if "page" in citation:
-                        citations_text += f"- {citation['document']}, Page {citation['page']}\n"
-                    elif "url" in citation:
-                        citations_text += f"- [{citation['source']}]({citation['url']})\n"
-                    else:
-                        citations_text += f"- {citation.get('source', 'Unknown')}\n"
-            
-            final_response = answer + citations_text
+            # No separate citations section - citations should be inline in the answer
+            # The LLM should have already included inline citations in the format (Document_Name, Page X)
+            final_response = answer
             
             return {
                 "response": final_response,

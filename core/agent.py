@@ -192,7 +192,8 @@ class PRISMAgent:
         thread_id: str = "default"
     ) -> Dict[str, Any]:
         """
-        Refine a query using follow-up answer and process it.
+        Refine a query using follow-up answer and check if it's clear.
+        If still vague, ask another follow-up question.
         
         Args:
             original_query: Original vague query
@@ -202,14 +203,55 @@ class PRISMAgent:
             thread_id: Thread ID for conversation memory
             
         Returns:
-            Dictionary with response and metadata
+            Dictionary with response and metadata (may include needs_follow_up if still vague)
         """
         from core.nodes.query_refinement import QueryRefinementAgent
         
         agent = QueryRefinementAgent()
-        refined_query = agent.refine_query(original_query, follow_up_answer)
         
-        # Process the refined query
+        # Get conversation history for context
+        try:
+            config = {
+                "configurable": {
+                    "thread_id": thread_id
+                }
+            }
+            previous_state = self.graph.get_state(config)
+            messages = previous_state.values.get("messages", []) if previous_state.values else []
+            
+            # Format conversation history
+            conversation_history_parts = []
+            for msg in messages[-10:]:  # Last 10 messages
+                if hasattr(msg, 'type') and hasattr(msg, 'content'):
+                    role = "User" if msg.type == "human" else "Assistant"
+                    content = str(msg.content)[:300]  # Limit length
+                    conversation_history_parts.append(f"{role}: {content}")
+            
+            conversation_history = "\n".join(conversation_history_parts) if conversation_history_parts else ""
+        except Exception as e:
+            logger.info(f"Could not retrieve conversation history: {e}")
+            conversation_history = ""
+        
+        # Refine query and check if it's clear
+        refinement_result = agent.refine_query(
+            query=original_query,
+            follow_up_answer=follow_up_answer,
+            conversation_history=conversation_history
+        )
+        
+        # If still vague, return with follow-up question
+        if not refinement_result.get("is_clear", True):
+            follow_up_question = refinement_result.get("follow_up_question")
+            return {
+                "response": None,
+                "needs_follow_up": True,
+                "follow_up_questions": [follow_up_question] if follow_up_question else [],
+                "is_relevant": None,
+                "citations": []
+            }
+        
+        # Query is now clear, process it
+        refined_query = refinement_result.get("refined_query", f"{original_query} {follow_up_answer}")
         return self.process_query(
             query=refined_query,
             course_name=course_name,

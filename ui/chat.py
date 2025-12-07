@@ -41,20 +41,41 @@ def handle_user_input(user_query, generate_response):
             thread_id=thread_id
         )
         
-        # Store follow-up answer
-        st.session_state.chat_history.append({"role": "user", "content": f"Follow-up: {user_query}"})
+        # Store follow-up answer (without "Follow-up:" prefix for cleaner conversation)
+        st.session_state.chat_history.append({"role": "user", "content": user_query})
+        
+        # Check if still needs follow-up (conversational flow)
+        if result.get("needs_follow_up"):
+            # Still vague, ask another follow-up question
+            follow_up_questions = result.get("follow_up_questions", [])
+            if follow_up_questions:
+                follow_up_question = follow_up_questions[0]
+                response = f"I need a bit more information. {follow_up_question}"
+                # Keep follow-up state active for next question
+                st.session_state.original_query = st.session_state.original_query + " " + user_query  # Accumulate context
+                st.session_state.follow_up_questions = [follow_up_question]
+            else:
+                response = result.get("response", "Processing your refined question...")
+                # Clear follow-up state
+                st.session_state.follow_up_needed = False
+                if 'follow_up_questions' in st.session_state:
+                    del st.session_state.follow_up_questions
+                if 'original_query' in st.session_state:
+                    del st.session_state.original_query
+        else:
+            # Query is now clear, show response
+            response = result.get("response", "Processing your refined question...")
+            # Clear follow-up state
+            st.session_state.follow_up_needed = False
+            if 'follow_up_questions' in st.session_state:
+                del st.session_state.follow_up_questions
+            if 'original_query' in st.session_state:
+                del st.session_state.original_query
         
         # Generate and display response
         with st.chat_message("assistant"):
             with st.spinner(f"PRISM Agent (Course: {course_name}) is processing..."):
-                response = result.get("response", "Processing your refined question...")
-        
-        # Clear follow-up state
-        st.session_state.follow_up_needed = False
-        if 'follow_up_questions' in st.session_state:
-            del st.session_state.follow_up_questions
-        if 'original_query' in st.session_state:
-            del st.session_state.original_query
+                pass  # Response already generated above
     else:
         # Regular query
         # Store User Query in State
