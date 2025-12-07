@@ -23,6 +23,7 @@ class AgentState(TypedDict):
     course_content_found: bool
     course_context: Optional[str]
     course_citations: List[Dict[str, Any]]
+    retrieved_chunks: Optional[List[Dict[str, Any]]]
     
     # Web search
     web_search_results: Optional[str]
@@ -77,6 +78,7 @@ def create_initial_state(
         course_content_found=False,
         course_context=None,
         course_citations=[],
+        retrieved_chunks=None,
         web_search_results=None,
         web_search_citations=[],
         user_context=user_context,

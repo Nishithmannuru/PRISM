@@ -204,6 +204,7 @@ def course_rag_node(state: Dict[str, Any]) -> Dict[str, Any]:
     state["course_content_found"] = result["found"]
     state["course_context"] = result["context"]
     state["course_citations"] = result["citations"]
+    state["retrieved_chunks"] = result.get("retrieved_chunks", [])
     state["current_node"] = "course_rag"
     
     if state["course_content_found"]:
