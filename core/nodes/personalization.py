@@ -222,49 +222,86 @@ CRITICAL INSTRUCTIONS:
                 answer = "I apologize, but I couldn't generate a response. Please try rephrasing your question."
             
             # Filter citations to only include sources actually referenced in the response
-            # Extract source numbers from the answer (e.g., [Source 1], [Source 2, Page 2])
+            # Extract inline citations from the answer in format (Document_Name, Page X)
             import re
-            # Match both formats: [Source 2] and [Source 2, Page 2]
-            source_pattern = r'\[Source\s+(\d+)(?:,\s*Page\s+\d+)?\]'
-            referenced_sources = set()
-            for match in re.finditer(source_pattern, answer, re.IGNORECASE):
-                source_num = int(match.group(1))
-                referenced_sources.add(source_num)
+            # Match inline citation format: (Document_Name, Page X) or (Source_Name, URL)
+            # Pattern matches: (text, Page number) or (text, URL)
+            inline_citation_pattern = r'\(([^,)]+),\s*(?:Page\s+)?(\d+|[^)]+)\)'
+            referenced_citations = []
             
-            logger.info(f"Found {len(referenced_sources)} referenced sources in response: {sorted(referenced_sources)}")
-            
-            # If sources are referenced, filter citations to only those sources
-            # Otherwise, use all citations (for web search or when no explicit sources)
-            filtered_citations = citations
-            if referenced_sources and not is_from_web and retrieved_chunks:
-                logger.info(f"Filtering citations: {len(referenced_sources)} sources referenced, {len(retrieved_chunks)} chunks available, {len(citations)} total citations")
-                # Map source numbers to citations using retrieved_chunks
-                # Source numbers are 1-indexed and correspond to the order in retrieved_chunks
-                source_to_citation = {}
-                for idx, chunk in enumerate(retrieved_chunks, start=1):
-                    source_to_citation[idx] = {
-                        "document": chunk.get('document_name', 'Unknown'),
-                        "page": chunk.get('page_number', 'Unknown')
-                    }
+            for match in re.finditer(inline_citation_pattern, answer, re.IGNORECASE):
+                doc_name = match.group(1).strip()
+                page_or_url = match.group(2).strip()
                 
-                # Filter citations to only referenced sources
+                # Check if it's a page number (digits) or URL
+                if page_or_url.isdigit():
+                    page_num = int(page_or_url)
+                    referenced_citations.append({
+                        "document": doc_name,
+                        "page": page_num
+                    })
+                else:
+                    # It's a URL or other format
+                    referenced_citations.append({
+                        "document": doc_name,
+                        "url": page_or_url
+                    })
+            
+            logger.info(f"Found {len(referenced_citations)} inline citations in response")
+            if referenced_citations:
+                logger.info(f"Inline citations found: {referenced_citations[:3]}...")  # Log first 3
+            
+            # If inline citations are found, filter to match them
+            # Otherwise, use all citations (for web search or when no explicit citations)
+            filtered_citations = citations
+            if referenced_citations and not is_from_web and retrieved_chunks:
+                logger.info(f"Filtering citations: {len(referenced_citations)} inline citations found, {len(retrieved_chunks)} chunks available, {len(citations)} total citations")
+                
+                # Create a set of (document, page) tuples from referenced citations for matching
+                referenced_keys = set()
+                for ref_citation in referenced_citations:
+                    doc = ref_citation.get("document", "").strip()
+                    page = ref_citation.get("page")
+                    if doc and page is not None:
+                        # Normalize document name (remove spaces, handle variations)
+                        doc_normalized = doc.replace(" ", "_").replace("-", "_").lower()
+                        referenced_keys.add((doc_normalized, page))
+                
+                # Match referenced citations against actual citations
                 filtered_citations = []
                 seen_citations = set()
-                for source_num in sorted(referenced_sources):
-                    if source_num in source_to_citation:
-                        citation = source_to_citation[source_num]
-                        # Create a unique key for deduplication
-                        citation_key = (citation.get('document'), citation.get('page'))
-                        if citation_key not in seen_citations:
-                            filtered_citations.append(citation)
-                            seen_citations.add(citation_key)
                 
-                logger.info(f"Filtered citations: {len(referenced_sources)} sources referenced, {len(filtered_citations)} unique citations after filtering (from {len(citations)} total)")
+                for citation in citations:
+                    doc = citation.get("document", "").strip()
+                    page = citation.get("page")
+                    
+                    if doc and page is not None:
+                        # Normalize document name for comparison
+                        doc_normalized = doc.replace(" ", "_").replace("-", "_").lower()
+                        citation_key = (doc_normalized, page)
+                        
+                        # Check if this citation matches any referenced citation
+                        # Use fuzzy matching to handle variations in document names
+                        matches = False
+                        for ref_key in referenced_keys:
+                            ref_doc, ref_page = ref_key
+                            # Exact match on page and document name contains the reference or vice versa
+                            if ref_page == page and (ref_doc in doc_normalized or doc_normalized in ref_doc):
+                                matches = True
+                                break
+                        
+                        if matches:
+                            citation_unique_key = (doc, page)
+                            if citation_unique_key not in seen_citations:
+                                filtered_citations.append(citation)
+                                seen_citations.add(citation_unique_key)
+                
+                logger.info(f"Filtered citations: {len(referenced_citations)} inline citations found, {len(filtered_citations)} matching citations after filtering (from {len(citations)} total)")
                 logger.info(f"Filtered citation details: {filtered_citations}")
                 
-                # If no sources matched, fall back to all citations
+                # If no citations matched, fall back to all citations
                 if not filtered_citations:
-                    logger.warning("No matching citations found for referenced sources, using all citations")
+                    logger.warning("No matching citations found for inline citations, using all citations")
                     filtered_citations = citations
                 else:
                     logger.info(f"Successfully filtered to {len(filtered_citations)} citations from {len(citations)} total")
@@ -283,7 +320,7 @@ CRITICAL INSTRUCTIONS:
                             unique_citations.append(citation)
                     filtered_citations = unique_citations
                     logger.info(f"Deduplicated web citations: {len(filtered_citations)} unique citations (from {len(citations)} total)")
-                elif not is_from_web and not referenced_sources and citations and retrieved_chunks:
+                elif not is_from_web and not referenced_citations and citations and retrieved_chunks:
                     # No sources referenced in response - use only top citations by score
                     # Limit to top 3-5 citations to avoid showing too many
                     logger.info(f"No source references found in response. Limiting to top citations.")
