@@ -230,6 +230,7 @@ CRITICAL INSTRUCTIONS:
             # Otherwise, use all citations (for web search or when no explicit sources)
             filtered_citations = citations
             if referenced_sources and not is_from_web and retrieved_chunks:
+                logger.info(f"Filtering citations: {len(referenced_sources)} sources referenced, {len(retrieved_chunks)} chunks available, {len(citations)} total citations")
                 # Map source numbers to citations using retrieved_chunks
                 # Source numbers are 1-indexed and correspond to the order in retrieved_chunks
                 source_to_citation = {}
@@ -252,11 +253,14 @@ CRITICAL INSTRUCTIONS:
                             seen_citations.add(citation_key)
                 
                 logger.info(f"Filtered citations: {len(referenced_sources)} sources referenced, {len(filtered_citations)} unique citations after filtering (from {len(citations)} total)")
+                logger.info(f"Filtered citation details: {filtered_citations}")
                 
                 # If no sources matched, fall back to all citations
                 if not filtered_citations:
                     logger.warning("No matching citations found for referenced sources, using all citations")
                     filtered_citations = citations
+                else:
+                    logger.info(f"Successfully filtered to {len(filtered_citations)} citations from {len(citations)} total")
             else:
                 # For web search or when no explicit sources, use all citations
                 # But deduplicate by URL for web search
