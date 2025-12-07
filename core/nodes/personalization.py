@@ -338,9 +338,21 @@ CRITICAL INSTRUCTIONS:
                     filtered_citations = unique_citations
                     logger.info(f"Limited to top {len(filtered_citations)} citations (from {len(citations)} total) when no sources referenced")
             
-            # No separate citations section - citations should be inline in the answer
-            # The LLM should have already included inline citations in the format (Document_Name, Page X)
-            final_response = answer
+            # For web search, add citations section with clickable links
+            # For course content, citations are inline only
+            if is_from_web and filtered_citations:
+                citations_text = "\n\n**Sources:**\n"
+                for i, citation in enumerate(filtered_citations, 1):
+                    url = citation.get('url', '')
+                    source = citation.get('source', citation.get('document', 'Unknown'))
+                    if url:
+                        citations_text += f"{i}. [{source}]({url})\n"
+                    else:
+                        citations_text += f"{i}. {source}\n"
+                final_response = answer + citations_text
+            else:
+                # For course content, citations are inline only
+                final_response = answer
             
             return {
                 "response": final_response,
