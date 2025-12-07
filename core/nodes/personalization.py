@@ -215,13 +215,16 @@ CRITICAL INSTRUCTIONS:
                 answer = "I apologize, but I couldn't generate a response. Please try rephrasing your question."
             
             # Filter citations to only include sources actually referenced in the response
-            # Extract source numbers from the answer (e.g., [Source 1], [Source 2])
+            # Extract source numbers from the answer (e.g., [Source 1], [Source 2, Page 2])
             import re
-            source_pattern = r'\[Source\s+(\d+)\]'
+            # Match both formats: [Source 2] and [Source 2, Page 2]
+            source_pattern = r'\[Source\s+(\d+)(?:,\s*Page\s+\d+)?\]'
             referenced_sources = set()
             for match in re.finditer(source_pattern, answer, re.IGNORECASE):
                 source_num = int(match.group(1))
                 referenced_sources.add(source_num)
+            
+            logger.info(f"Found {len(referenced_sources)} referenced sources in response: {sorted(referenced_sources)}")
             
             # If sources are referenced, filter citations to only those sources
             # Otherwise, use all citations (for web search or when no explicit sources)
