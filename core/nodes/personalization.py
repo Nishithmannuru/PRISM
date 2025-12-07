@@ -314,70 +314,104 @@ CRITICAL INSTRUCTIONS:
             else:
                 # For web search, filter to only citations that are actually referenced in the response
                 if is_from_web and citations:
-                    # Extract source names/URLs referenced in the response
-                    # Look for patterns like (Source_Name, URL) or mentions of source names
-                    referenced_sources = set()
+                    # Extract source names from inline citations in the response
+                    # Look for patterns like (Source_Name, Page X) or (Source_Name, URL)
+                    referenced_source_names = set()
+                    referenced_urls = set()
                     
-                    # Check for inline citations with URLs
+                    # Extract from inline citations
                     for ref_citation in referenced_citations:
                         doc_name = ref_citation.get("document", "").strip()
                         url = ref_citation.get("url", "")
                         if doc_name:
-                            referenced_sources.add(doc_name.lower())
+                            # Normalize source name for matching
+                            referenced_source_names.add(doc_name.lower().strip())
                         if url:
-                            referenced_sources.add(url.lower())
+                            referenced_urls.add(url.lower().strip())
                     
-                    # Also check if source names are mentioned in the response text
-                    # Extract source names from citations
+                    # Also check if source names from citations are mentioned in the response
                     for citation in citations:
                         source = citation.get('source', '').strip()
                         url = citation.get('url', '').strip()
-                        if source and source.lower() in answer.lower():
-                            referenced_sources.add(source.lower())
-                        if url and url.lower() in answer.lower():
-                            referenced_sources.add(url.lower())
+                        
+                        # Check if source name appears in answer (case-insensitive)
+                        if source:
+                            source_lower = source.lower()
+                            # Check if source name or part of it is in the answer
+                            if source_lower in answer.lower() or any(word in answer.lower() for word in source_lower.split() if len(word) > 3):
+                                referenced_source_names.add(source_lower)
+                        
+                        # Check if URL is mentioned
+                        if url and url in answer:
+                            referenced_urls.add(url.lower())
                     
                     # Filter citations to only those referenced
-                    if referenced_sources:
-                        filtered_citations = []
-                        seen_urls = set()
+                    filtered_citations = []
+                    seen_urls = set()
+                    
+                    for citation in citations:
+                        source = citation.get('source', '').strip()
+                        url = citation.get('url', '').strip()
+                        
+                        # Check if this citation is referenced
+                        is_referenced = False
+                        
+                        # Match by source name (fuzzy matching)
+                        if source:
+                            source_lower = source.lower()
+                            # Check exact match or if source name contains referenced name or vice versa
+                            for ref_name in referenced_source_names:
+                                if ref_name in source_lower or source_lower in ref_name:
+                                    is_referenced = True
+                                    break
+                        
+                        # Match by URL
+                        if url and (url.lower() in referenced_urls or url in answer):
+                            is_referenced = True
+                        
+                        # If referenced, add to filtered citations
+                        if is_referenced:
+                            # Deduplicate by URL
+                            if url and url not in seen_urls:
+                                filtered_citations.append(citation)
+                                seen_urls.add(url)
+                            elif not url:  # Include citations without URLs
+                                filtered_citations.append(citation)
+                    
+                    # If no citations matched but we have inline citations, try to match by extracting source names from answer
+                    if not filtered_citations and referenced_citations:
+                        logger.info("No direct matches found, trying to match by source name patterns")
+                        # Extract all source names from citations and check if they appear in inline citations
                         for citation in citations:
                             source = citation.get('source', '').strip()
                             url = citation.get('url', '').strip()
                             
-                            # Check if this citation is referenced
-                            is_referenced = False
-                            if source and source.lower() in referenced_sources:
-                                is_referenced = True
-                            if url and (url.lower() in referenced_sources or url in answer):
-                                is_referenced = True
-                            
-                            if is_referenced:
-                                # Deduplicate by URL
-                                if url and url not in seen_urls:
-                                    filtered_citations.append(citation)
-                                    seen_urls.add(url)
-                                elif not url:  # Include citations without URLs
-                                    filtered_citations.append(citation)
-                        
-                        logger.info(f"Filtered web citations: {len(referenced_sources)} sources referenced, {len(filtered_citations)} matching citations (from {len(citations)} total)")
-                    else:
-                        # No sources explicitly referenced, but check if URLs are mentioned
-                        filtered_citations = []
+                            # Check if any part of the source name matches referenced names
+                            if source:
+                                source_words = source.lower().split()
+                                for ref_name in referenced_source_names:
+                                    ref_words = ref_name.split()
+                                    # Check if any significant word matches
+                                    if any(word in source_words for word in ref_words if len(word) > 3):
+                                        if url and url not in seen_urls:
+                                            filtered_citations.append(citation)
+                                            seen_urls.add(url)
+                                        break
+                    
+                    # Final fallback: if still no matches, use all citations (they were used in search)
+                    if not filtered_citations:
+                        logger.info("No explicit source references matched. Using all search result citations.")
+                        # Deduplicate by URL
                         seen_urls = set()
                         for citation in citations:
-                            url = citation.get('url', '').strip()
-                            if url and url in answer:
-                                if url not in seen_urls:
-                                    filtered_citations.append(citation)
-                                    seen_urls.add(url)
-                        
-                        if not filtered_citations:
-                            # Fallback: use top 3 citations if none are explicitly referenced
-                            logger.info("No explicit source references found in response. Using top 3 citations.")
-                            filtered_citations = citations[:3]
-                        else:
-                            logger.info(f"Found {len(filtered_citations)} citations with URLs mentioned in response")
+                            url = citation.get('url', '')
+                            if url and url not in seen_urls:
+                                filtered_citations.append(citation)
+                                seen_urls.add(url)
+                            elif not url:
+                                filtered_citations.append(citation)
+                    else:
+                        logger.info(f"Filtered web citations: {len(referenced_source_names)} source names referenced, {len(filtered_citations)} matching citations (from {len(citations)} total)")
                 elif not is_from_web and not referenced_citations and citations and retrieved_chunks:
                     # No sources referenced in response - use only top citations by score
                     # Limit to top 3-5 citations to avoid showing too many
