@@ -72,10 +72,9 @@ def handle_user_input(user_query, generate_response):
             if 'original_query' in st.session_state:
                 del st.session_state.original_query
         
-        # Generate and display response
+        # Display response
         with st.chat_message("assistant"):
-            with st.spinner(f"PRISM Agent (Course: {course_name}) is processing..."):
-                pass  # Response already generated above
+            st.markdown(response)
     else:
         # Regular query
         # Store User Query in State
