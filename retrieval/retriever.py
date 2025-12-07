@@ -36,14 +36,21 @@ class CourseRetriever:
             top_k = TOP_K_RESULTS
         
         try:
+            logger.info(f"Querying vector store with course filter: '{course_name}', query: '{query}'")
             results = self.vector_store.query(
                 query_text=query,
                 course_name=course_name,
                 top_k=top_k
             )
+            logger.info(f"Vector store returned {len(results)} results")
+            if results:
+                logger.info(f"Top result: score={results[0].get('score', 'N/A'):.4f}, doc={results[0].get('document_name', 'N/A')}, page={results[0].get('page_number', 'N/A')}")
+                logger.info(f"Top result content preview: {results[0].get('content', '')[:150]}...")
+            else:
+                logger.warning(f"No results found for query: '{query}' in course: '{course_name}'")
             return results
         except Exception as e:
-            logger.error(f"Error retrieving documents: {e}")
+            logger.error(f"Error retrieving documents: {e}", exc_info=True)
             return []
     
     def format_context(self, results: List[Dict[str, Any]]) -> str:

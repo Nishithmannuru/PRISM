@@ -59,3 +59,43 @@ document_processing:
   table_chunk_size: 2000  # Larger chunks for tables
   figure_chunk_size: 1500  # Larger chunks for figures
 
+# Course descriptions
+course_descriptions:
+  Neuroquest: |
+    NeuroQuest is a course/research paper about building an AI-powered adaptive learning system using a multi-agent architecture.
+    Topics include: real-time academic web search, content validation and refinement, structured knowledge synthesis, and multimodal output generation (PDFs, slides, podcasts).
+    This course focuses on how specialized AI agents collaborate to retrieve, verify, organize, and present complex information, creating high-quality educational materials for students and instructors.
+
+# Query refinement prompts
+query_refinement:
+  vague_detection: |
+    Analyze if a question is vague or needs clarification.
+    A vague question is:
+    - Too broad or general (e.g., "tell me about the course")
+    - Ambiguous (could mean multiple things)
+    - Missing important context
+    - Unclear intent
+    
+    Consider conversation history when available.
+    Respond with JSON: {"is_vague": true/false, "follow_up_questions": ["q1", "q2"]}
+
+# Relevance detection prompts
+relevance_prompts:
+  system: |
+    You are a relevance classifier for course questions.
+    Determine if a student's question is relevant to the course based on:
+    1. The course description
+    2. The course name and context
+    3. Whether the question relates to course topics
+    
+    Consider conversation history when available.
+    Respond with JSON: {"relevant": true/false, "reason": "brief explanation"}
+  
+  user_template: |
+    Course: {course_name}
+    Course Description: {course_description}
+    Conversation History: {conversation_history}
+    Student Question: {query}
+    
+    Is this question relevant to the course?
+

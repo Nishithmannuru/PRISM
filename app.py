@@ -4,20 +4,20 @@ from pathlib import Path
 
 # Import UI components
 from ui import styling, sidebar, chat, session
-from generation.response_generator import ResponseGenerator
+from core.agent import PRISMAgent
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Initialize response generator (singleton pattern for Streamlit)
+# Initialize PRISM agent (singleton pattern for Streamlit)
 @st.cache_resource
-def get_response_generator():
-    """Get or create response generator instance."""
+def get_prism_agent():
+    """Get or create PRISM agent instance."""
     try:
-        return ResponseGenerator()
+        return PRISMAgent()
     except Exception as e:
-        logger.error(f"Error initializing response generator: {e}")
+        logger.error(f"Error initializing PRISM agent: {e}")
         return None
 
 
@@ -40,18 +40,18 @@ def get_available_courses():
 
 def generate_response(user_query):
     """
-    Generate response using RAG system.
+    Generate response using LangGraph agentic system.
     
     Args:
         user_query: User's question
         
     Returns:
-        Formatted response with citations
+        Formatted response with citations or follow-up questions
     """
     try:
-        generator = get_response_generator()
-        if generator is None:
-            return "Error: Response generator not available. Please check your configuration."
+        agent = get_prism_agent()
+        if agent is None:
+            return "Error: PRISM agent not available. Please check your configuration."
         
         course_name = st.session_state.user_context.get('course')
         user_context = st.session_state.user_context
@@ -59,23 +59,55 @@ def generate_response(user_query):
         if not course_name or course_name == "Select Course...":
             return "Please select a course to ask questions."
         
-        # Generate response
-        result = generator.generate_response(
+        # Handle simple greetings directly
+        query_lower = user_query.lower().strip()
+        greetings = ["hello", "hi", "hey", "greetings", "good morning", "good afternoon", "good evening"]
+        if query_lower in greetings or any(query_lower.startswith(g) for g in greetings):
+            return f"Hello! I'm PRISM, your adaptive learning assistant for {course_name}. How can I help you with your course today?"
+        
+        # Get conversation history for context
+        conversation_history = None
+        if 'chat_history' in st.session_state:
+            conversation_history = [
+                {"role": msg["role"], "content": msg["content"]}
+                for msg in st.session_state.chat_history
+                if msg["role"] in ["user", "assistant"] and msg.get("content")  # Filter out None content
+            ]
+        
+        # Generate thread ID from session (for memory)
+        thread_id = f"session_{st.session_state.user_context.get('student_id', 'default')}"
+        
+        # Process query through agentic flow
+        result = agent.process_query(
             query=user_query,
             course_name=course_name,
-            user_context=user_context
+            user_context=user_context,
+            conversation_history=conversation_history,
+            thread_id=thread_id
         )
         
-        # Format response with citations
-        response = result["response"]
+        # Handle follow-up questions
+        if result.get("needs_follow_up"):
+            follow_up_questions = result.get("follow_up_questions", [])
+            if follow_up_questions:
+                response = "I need a bit more information to help you better. Could you please clarify:\n\n"
+                for i, question in enumerate(follow_up_questions, 1):
+                    response += f"{i}. {question}\n"
+                response += "\nPlease provide answers to these questions so I can give you a more accurate response."
+                
+                # Store follow-up state
+                st.session_state.follow_up_needed = True
+                st.session_state.follow_up_questions = follow_up_questions
+                st.session_state.original_query = user_query
+                
+                return response
         
-        if result["citations"]:
-            citations_text = "\n\n**Citations:**\n"
-            for citation in result["citations"]:
-                citations_text += f"- {citation['document']}, Page {citation['page']}\n"
-            response += citations_text
+        # Clear follow-up state if we got here
+        if 'follow_up_needed' in st.session_state:
+            st.session_state.follow_up_needed = False
         
-        return response
+        # Return response
+        return result.get("response", "No response generated.")
         
     except Exception as e:
         logger.error(f"Error generating response: {e}")

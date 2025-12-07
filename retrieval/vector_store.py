@@ -133,34 +133,72 @@ class PineconeVectorStore:
             List of matching documents with metadata
         """
         try:
+            logger.info(f"Creating embedding for query: '{query_text[:50]}...'")
             # Create query embedding
             query_embedding = self.create_embeddings([query_text])[0]
+            logger.info(f"Embedding created, dimension: {len(query_embedding)}")
+            
+            # Normalize course_name for matching (strip whitespace)
+            normalized_course_name = course_name.strip()
+            
+            logger.info(f"Querying Pinecone with filter: course_name='{normalized_course_name}', top_k={top_k}")
             
             # Query with metadata filter
-            results = self.index.query(
-                vector=query_embedding,
-                top_k=top_k,
-                include_metadata=True,
-                filter={
-                    "course_name": {"$eq": course_name}
-                }
-            )
+            try:
+                results = self.index.query(
+                    vector=query_embedding,
+                    top_k=top_k,
+                    include_metadata=True,
+                    filter={
+                        "course_name": {"$eq": normalized_course_name}
+                    }
+                )
+            except Exception as filter_error:
+                logger.warning(f"Error with course filter '{normalized_course_name}': {filter_error}")
+                logger.info("Attempting query without filter and filtering results manually...")
+                # If filter fails, try without filter and filter manually
+                all_results = self.index.query(
+                    vector=query_embedding,
+                    top_k=top_k * 3,  # Get more results to filter manually
+                    include_metadata=True
+                )
+                # Filter manually by course name
+                filtered_matches = []
+                for match in all_results.matches:
+                    match_course = match.metadata.get("course_name", "").strip()
+                    if match_course == normalized_course_name:
+                        filtered_matches.append(match)
+                    else:
+                        logger.debug(f"Skipping match with course_name='{match_course}' (expected '{normalized_course_name}')")
+                
+                # Create a results-like object
+                from types import SimpleNamespace
+                results = SimpleNamespace(matches=filtered_matches[:top_k])
+                logger.info(f"Manually filtered to {len(results.matches)} matches for course '{normalized_course_name}'")
+            
+            logger.info(f"Pinecone returned {len(results.matches)} matches")
             
             # Format results
             formatted_results = []
             for match in results.matches:
+                match_course = match.metadata.get("course_name", "")
+                logger.debug(f"Match course: '{match_course}', score: {match.score}")
                 formatted_results.append({
                     "content": match.metadata.get("content", ""),
                     "page_number": match.metadata.get("page_number", 0),
                     "document_name": match.metadata.get("document_name", ""),
                     "type": match.metadata.get("type", "text"),
-                    "score": match.score
+                    "score": match.score,
+                    "course_name": match_course
                 })
             
-            logger.info(f"Found {len(formatted_results)} results for course: {course_name}")
+            logger.info(f"Formatted {len(formatted_results)} results for course: {normalized_course_name}")
+            if formatted_results:
+                logger.info(f"Top result score: {formatted_results[0].get('score', 'N/A')}")
+            
             return formatted_results
             
         except Exception as e:
-            logger.error(f"Error querying Pinecone: {e}")
+            logger.error(f"Error querying Pinecone: {e}", exc_info=True)
             raise
 

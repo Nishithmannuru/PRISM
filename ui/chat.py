@@ -13,6 +13,7 @@ def display_chat_history():
 def handle_user_input(user_query, generate_response):
     """
     Handles user input and generates response.
+    Supports follow-up questions for vague queries.
     
     Args:
         user_query: The user's question/input
@@ -21,13 +22,48 @@ def handle_user_input(user_query, generate_response):
     if not user_query:
         return
     
-    # Store User Query in State
-    st.session_state.chat_history.append({"role": "user", "content": user_query})
-    
-    # Generate and display response
-    with st.chat_message("assistant"):
-        with st.spinner(f"PRISM Agent (Course: {st.session_state.user_context['course']}) is thinking..."):
-            response = generate_response(user_query)
+    # Check if this is a follow-up answer
+    if st.session_state.get('follow_up_needed', False):
+        # This is an answer to a follow-up question
+        from core.agent import PRISMAgent
+        
+        agent = PRISMAgent()
+        course_name = st.session_state.user_context.get('course')
+        user_context = st.session_state.user_context
+        thread_id = f"session_{st.session_state.user_context.get('student_id', 'default')}"
+        
+        # Refine and process
+        result = agent.refine_query_with_follow_up(
+            original_query=st.session_state.original_query,
+            follow_up_answer=user_query,
+            course_name=course_name,
+            user_context=user_context,
+            thread_id=thread_id
+        )
+        
+        # Store follow-up answer
+        st.session_state.chat_history.append({"role": "user", "content": f"Follow-up: {user_query}"})
+        
+        # Generate and display response
+        with st.chat_message("assistant"):
+            with st.spinner(f"PRISM Agent (Course: {course_name}) is processing..."):
+                response = result.get("response", "Processing your refined question...")
+        
+        # Clear follow-up state
+        st.session_state.follow_up_needed = False
+        if 'follow_up_questions' in st.session_state:
+            del st.session_state.follow_up_questions
+        if 'original_query' in st.session_state:
+            del st.session_state.original_query
+    else:
+        # Regular query
+        # Store User Query in State
+        st.session_state.chat_history.append({"role": "user", "content": user_query})
+        
+        # Generate and display response
+        with st.chat_message("assistant"):
+            with st.spinner(f"PRISM Agent (Course: {st.session_state.user_context['course']}) is thinking..."):
+                response = generate_response(user_query)
     
     # Store Agent Response in State
     st.session_state.chat_history.append({"role": "assistant", "content": response})

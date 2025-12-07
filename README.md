@@ -7,7 +7,7 @@ PRISM is an adaptive learning application designed for students, leveraging an a
 ## Features
 
 - **Course-Relevant Answers**: Generates responses based on course materials from vector store
-- **Internet Search**: Uses SerpAPI for questions related to course topics but not in materials
+- **Internet Search**: Uses Tavily API for questions related to course topics but not in materials
 - **Query Classification**: Intelligently routes queries (course-relevant, out-of-scope, irrelevant)
 - **Follow-up Questions**: Handles vague queries by asking clarifying questions
 - **Response Evaluation**: Evaluates and refines responses using mathematical metrics
@@ -31,7 +31,7 @@ cp .env.example .env
 
 Edit `.env` and add your:
 - `OPENAI_API_KEY`: Your OpenAI API key
-- `SERPAPI_API_KEY`: Your SerpAPI key for internet search
+- `TAVILY_API_KEY`: Your Tavily API key for internet search
 
 ### 3. Run the Application
 
