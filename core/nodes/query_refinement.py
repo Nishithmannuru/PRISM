@@ -91,7 +91,7 @@ EXAMPLES:
 - History: "Tell me about the agents" Answer: "There are 3 agents..." Question: "What are they?" → NOT vague (they = agents)
 - History: None, Question: "Who are the authors of the paper?" → VAGUE (no referent)
 
-If it is vague, provide ONLY ONE follow-up question that will help clarify the query. Ask the most important question first. If not vague, set follow_up_questions to an empty array."""
+If it is vague, provide ONLY ONE follow-up question at a time that will help clarify the query. Ask the most important question first. If not vague, set follow_up_questions to an empty array."""
             
             response = self.client.chat.completions.create(
                 model=OPENAI_MODEL,
