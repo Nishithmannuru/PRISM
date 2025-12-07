@@ -276,6 +276,23 @@ CRITICAL INSTRUCTIONS:
                             unique_citations.append(citation)
                     filtered_citations = unique_citations
                     logger.info(f"Deduplicated web citations: {len(filtered_citations)} unique citations (from {len(citations)} total)")
+                elif not is_from_web and not referenced_sources and citations and retrieved_chunks:
+                    # No sources referenced in response - use only top citations by score
+                    # Limit to top 3-5 citations to avoid showing too many
+                    logger.info(f"No source references found in response. Limiting to top citations.")
+                    # Get unique citations and limit to top 5
+                    seen_citations = set()
+                    unique_citations = []
+                    for chunk in retrieved_chunks[:5]:  # Only use top 5 chunks
+                        citation_key = (chunk.get('document_name'), chunk.get('page_number'))
+                        if citation_key not in seen_citations:
+                            unique_citations.append({
+                                "document": chunk.get('document_name', 'Unknown'),
+                                "page": chunk.get('page_number', 'Unknown')
+                            })
+                            seen_citations.add(citation_key)
+                    filtered_citations = unique_citations
+                    logger.info(f"Limited to top {len(filtered_citations)} citations (from {len(citations)} total) when no sources referenced")
             
             # Format citations
             citations_text = ""
