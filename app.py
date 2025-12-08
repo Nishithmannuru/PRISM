@@ -147,6 +147,7 @@ def main():
     chat.render_chat_interface(generate_response)
     
     # --- Copyright Footer ---
+    st.markdown("<br>", unsafe_allow_html=True)
     st.markdown(
         '<div class="footer">© PRISM Adaptive Learning System 2025 (UNT Dissertation POC)</div>',
         unsafe_allow_html=True

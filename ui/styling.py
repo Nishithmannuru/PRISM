@@ -12,6 +12,31 @@ def set_streamlit_config():
         initial_sidebar_state="expanded"
     )
     
+    # Reduce sidebar width and make it more compact
+    st.markdown(
+        """
+        <style>
+        [data-testid="stSidebar"] {
+            min-width: 240px !important;
+            max-width: 280px !important;
+        }
+        
+        /* Make sidebar scrollable if needed but reduce all spacing */
+        [data-testid="stSidebar"] .element-container {
+            margin-bottom: 0.2rem !important;
+            padding: 0.1rem 0 !important;
+        }
+        
+        /* Reduce label sizes */
+        [data-testid="stSidebar"] label {
+            font-size: 0.85em !important;
+            margin-bottom: 0.2rem !important;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+    
     # Inject custom CSS for UNT Green theme and professional look
     st.markdown(
         """
@@ -40,26 +65,111 @@ def set_streamlit_config():
             margin-bottom: 15px;
         }
         
-        /* Header Styling */
-        .header-title {
-            color: #00853C;
-            font-size: 4.5em;
-            font-weight: 900;
-            margin-top: -0.5em;
-            margin-bottom: -0.3em;
-            letter-spacing: 2px;
-            padding-top: 0.5em;
+        /* Chat message styling */
+        .stChatMessage {
+            padding: 0.75rem 1rem;
+            margin-bottom: 1rem;
         }
         
-        /* Subtitle Styling */
-        .header-subtitle {
-            color: #666666;
-            font-size: 0.95em;
-            font-weight: 500;
-            margin-top: -0.2em;
-            margin-bottom: 0.5em;
-            font-style: italic;
-            letter-spacing: 0.5px;
+        /* User message styling (right side) */
+        .stChatMessage[data-testid="user"] {
+            background-color: #e3f2fd;
+            border-radius: 18px 18px 4px 18px;
+            margin-left: auto;
+            max-width: 75%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 12px 16px;
+        }
+        
+        /* Assistant message styling (left side) */
+        .stChatMessage[data-testid="assistant"] {
+            background-color: #fce4ec;
+            border-radius: 18px 18px 18px 4px;
+            margin-right: auto;
+            max-width: 75%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 12px 16px;
+        }
+        
+        /* Avatar styling */
+        .stChatMessage .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+        }
+        
+        /* Main content area */
+        .main .block-container {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+        
+        /* Sidebar improvements */
+        .stSidebar {
+            background-color: #fafafa;
+        }
+        
+        /* Reduce sidebar element spacing - extremely compact */
+        .stSidebar .element-container {
+            margin-bottom: 0.2rem !important;
+            padding: 0.1rem 0 !important;
+        }
+        
+        .stSidebar .stSubheader {
+            margin-top: 0.2rem !important;
+            margin-bottom: 0.2rem !important;
+            font-size: 1em !important;
+            padding-top: 0.2rem !important;
+        }
+        
+        .stSidebar .stSuccess {
+            padding: 0.25rem 0.4rem !important;
+            margin-bottom: 0.2rem !important;
+            font-size: 0.8em !important;
+        }
+        
+        .stSidebar .stMarkdown {
+            margin-bottom: 0.1rem !important;
+            font-size: 0.8em !important;
+            line-height: 1.2 !important;
+        }
+        
+        .stSidebar .stTextInput > div > div > input {
+            padding: 0.3rem 0.4rem !important;
+            font-size: 0.85em !important;
+            margin-bottom: 0.1rem !important;
+        }
+        
+        .stSidebar .stSelectbox > div > div > select {
+            padding: 0.3rem 0.4rem !important;
+            font-size: 0.85em !important;
+            margin-bottom: 0.1rem !important;
+        }
+        
+        .stSidebar hr {
+            margin: 0.3rem 0 !important;
+        }
+        
+        /* Reduce button padding */
+        .stSidebar .stButton > button {
+            padding: 0.4rem 0.8rem !important;
+            font-size: 0.85em !important;
+            margin-bottom: 0.2rem !important;
+        }
+        
+        /* Reduce label font size and spacing */
+        .stSidebar label {
+            font-size: 0.8em !important;
+            margin-bottom: 0.15rem !important;
+        }
+        
+        /* Input field styling */
+        .stChatInputContainer {
+            position: sticky;
+            bottom: 0;
+            background-color: white;
+            padding: 1rem 0;
+            z-index: 100;
         }
         
         /* Chat Input Placeholder Styling */

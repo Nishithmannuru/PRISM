@@ -36,30 +36,45 @@ def render_new_chat_button():
 def render_sidebar(course_options, degree_options, handle_start_session):
     """Renders the complete sidebar with user context and session setup."""
     with st.sidebar:
-        # New Chat button at the top
+        # Chatbot name and branding at the top - very compact
+        st.markdown(
+            '<div style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px; padding: 2px 0;">'
+            '<span style="font-size: 1.3em;">🧠</span>'
+            '<div>'
+            '<h1 style="margin: 0; color: #00853C; font-size: 1.3em; font-weight: 700; line-height: 1.1;">PRISM</h1>'
+            '<p style="margin: 0; color: #666; font-size: 0.6em; font-style: italic; line-height: 1.1;">Adaptive Learning System</p>'
+            '</div>'
+            '</div>',
+            unsafe_allow_html=True
+        )
+        st.markdown("---")
+        
+        # New Chat button
         render_new_chat_button()
         
-        st.subheader("User Context & Session Setup")
+        st.subheader("Session Setup")
         
         # Check if session is already active
         if st.session_state.user_context['is_ready']:
-            st.success("Session Active. Ready for Chat.")
-            st.info(f"**Course:** {st.session_state.user_context['course']}")
-            st.info(f"**Degree:** {st.session_state.user_context['degree']}")
-            st.info(f"**Major:** {st.session_state.user_context['major']}")
+            st.success("✅ Session Active")
+            st.markdown("**Current Session:**")
+            st.markdown(f"**Course:** {st.session_state.user_context['course']}")
+            st.markdown(f"**Degree:** {st.session_state.user_context['degree']}")
+            st.markdown(f"**Major:** {st.session_state.user_context['major']}")
             st.markdown("---")
             
-            if st.button("End Session"):
+            if st.button("End Session", use_container_width=True):
                 reset_session()
                 st.rerun()
         else:
             # Input Form - fields are enabled when session is not active
             # They will be disabled once session starts (handled by session state)
             st.text_input(
-                "Student ID (Unique Identifier)",
+                "Student ID",
                 key="student_id_input",
                 placeholder="e.g., 10005578",
-                disabled=st.session_state.user_context['is_ready']
+                disabled=st.session_state.user_context['is_ready'],
+                help="Unique identifier for the student"
             )
             
             st.selectbox(
@@ -70,22 +85,20 @@ def render_sidebar(course_options, degree_options, handle_start_session):
             )
             
             st.text_input(
-                "Major (Type In)",
+                "Major",
                 key="major_input",
                 placeholder="e.g., Computer Science",
                 disabled=st.session_state.user_context['is_ready']
             )
             
             st.selectbox(
-                "Course Code & Name",
+                "Course",
                 options=course_options,
                 key="course_dropdown",
                 disabled=st.session_state.user_context['is_ready']
             )
             
-            st.markdown("---")
-            
-            # Start Session Button
-            if st.button("Start PRISM Session"):
+            # Start Session Button - no separator before it
+            if st.button("Start PRISM Session", use_container_width=True):
                 handle_start_session(course_options, degree_options)
 
