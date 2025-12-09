@@ -172,6 +172,121 @@ def set_streamlit_config():
             z-index: 100;
         }
         
+        /* Custom chat input styling to look like native chat input */
+        form[key="chat_form"] {
+            background-color: #f8f9fa;
+            border-radius: 24px;
+            padding: 0.5rem;
+            border: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        form[key="chat_form"]:focus-within {
+            border-color: #00853C;
+            box-shadow: 0 0 0 2px rgba(0, 133, 60, 0.1);
+        }
+        
+        form[key="chat_form"] div[data-testid="column"] {
+            padding: 0 0.25rem;
+        }
+        
+        input[key*="custom_chat_input"] {
+            border: none !important;
+            background: transparent !important;
+            padding: 0.75rem 0.5rem !important;
+            font-size: 1rem !important;
+            box-shadow: none !important;
+        }
+        
+        input[key*="custom_chat_input"]:focus {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+        
+        /* Plus button styling */
+        button[key*="plus_button"] {
+            background-color: transparent !important;
+            border: none !important;
+            color: #666 !important;
+            font-size: 1.3em !important;
+            padding: 0.5rem !important;
+            border-radius: 50% !important;
+            min-height: 36px !important;
+            min-width: 36px !important;
+            box-shadow: none !important;
+        }
+        
+        button[key*="plus_button"]:hover {
+            background-color: rgba(0, 0, 0, 0.05) !important;
+            color: #00853C !important;
+        }
+        
+        /* Send button styling - smaller size */
+        button[type="submit"][key*="chat_form"]:not([key*="plus_button"]) {
+            background-color: #00853C !important;
+            border-radius: 50% !important;
+            min-height: 28px !important;
+            min-width: 28px !important;
+            max-height: 28px !important;
+            max-width: 28px !important;
+            padding: 0 !important;
+            color: white !important;
+            border: none !important;
+            font-size: 0.9em !important;
+        }
+        
+        button[type="submit"][key*="chat_form"]:not([key*="plus_button"]):hover {
+            background-color: #00662D !important;
+        }
+        
+        /* Flashcard toggle button styling */
+        button[key*="flashcard_toggle"] {
+            font-size: 1.3em !important;
+            padding: 0.4rem 0.6rem !important;
+            min-height: 40px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            border-radius: 8px !important;
+        }
+        
+        /* Caption styling for flashcard mode indicator */
+        .stCaption {
+            color: #00853C;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+            padding-top: 0.5rem;
+        }
+        
+        /* Flashcard styling */
+        .stExpander {
+            margin-bottom: 0.5rem;
+        }
+        
+        .stExpander .streamlit-expanderHeader {
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            padding: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .stExpander[aria-expanded="true"] .streamlit-expanderHeader {
+            background-color: #e3f2fd;
+        }
+        
+        .stExpander .streamlit-expanderContent {
+            padding: 1rem;
+        }
+        
+        /* Flashcard section header */
+        h3 {
+            color: #00853C;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
         /* Chat Input Placeholder Styling */
         .stChatInputContainer textarea::placeholder {
             color: #999999;

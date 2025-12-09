@@ -18,6 +18,13 @@ def initialize_session_state():
         st.session_state.chat_history = [
             {"role": "assistant", "content": "Welcome to PRISM! Please fill out the form on the left to start your adaptive learning session."}
         ]
+    
+    # Initialize flashcard state
+    if 'flashcards' not in st.session_state:
+        st.session_state.flashcards = []
+    
+    if 'flashcard_topic' not in st.session_state:
+        st.session_state.flashcard_topic = None
 
 
 def handle_start_session(course_options, degree_options):

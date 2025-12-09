@@ -230,7 +230,20 @@ def query_refinement_node(state: Dict[str, Any]) -> Dict[str, Any]:
     )
     
     # Fallback: If query uses common reference words and we have conversation history, be lenient
-    query_lower = current_query.lower()
+    query_lower = current_query.lower().strip()
+    import re
+    
+    # Check for simple greetings and direct questions (these are always clear)
+    greetings = ["hello", "hi", "hey", "greetings", "good morning", "good afternoon", "good evening", "how are you", "what's up"]
+    is_greeting = any(greeting in query_lower for greeting in greetings)
+    
+    # Check for direct question patterns (what, how, why, when, where, explain, tell me, describe, etc.)
+    direct_question_patterns = [
+        r'^(what|how|why|when|where|who|which|can|could|would|should|is|are|was|were|do|does|did)\s+',
+        r'^(explain|tell me|describe|define|show me|give me|help me|i want|i need|i\'m looking for)',
+        r'^(what is|what are|how does|how do|why is|why are|when is|when are|where is|where are)',
+    ]
+    is_direct_question = any(re.search(pattern, query_lower, re.IGNORECASE) for pattern in direct_question_patterns)
     
     # Check for module-related queries (these are always clear)
     module_patterns = [
@@ -243,13 +256,25 @@ def query_refinement_node(state: Dict[str, Any]) -> Dict[str, Any]:
         r'module\s+\d+\s+content',
         r'module\s+\d+\s+topics'
     ]
-    import re
     is_module_query = any(re.search(pattern, query_lower, re.IGNORECASE) for pattern in module_patterns)
     
-    if is_module_query:
-        logger.info(f"Query is about a module - treating as clear, not vague.")
+    # Override vague detection for clear queries
+    if is_greeting or is_direct_question or is_module_query:
+        logger.info(f"Query is a greeting/direct question/module query - treating as clear, not vague.")
         result["is_vague"] = False
         result["follow_up_questions"] = []
+    
+    # Additional fallback: If query is short and simple (less than 50 chars), be lenient
+    # Only override if LLM marked it as vague but it seems like a simple question
+    if result["is_vague"] and len(current_query.strip()) < 50:
+        # Check if it contains question words or common question patterns
+        question_indicators = ["what", "how", "why", "when", "where", "who", "which", "explain", "tell", "describe", "define", "help"]
+        has_question_indicator = any(indicator in query_lower for indicator in question_indicators)
+        
+        if has_question_indicator:
+            logger.info(f"Query is short and contains question indicators - overriding vague detection.")
+            result["is_vague"] = False
+            result["follow_up_questions"] = []
     
     # Check for reference words
     reference_words = ["the paper", "the document", "it", "they", "this", "that", "these", "those", "the authors", "the agents", "the figures", "the tables"]

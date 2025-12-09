@@ -15,6 +15,16 @@ def reset_session():
         'degree': None,
         'is_ready': False
     }
+    # Clear flashcards
+    if 'flashcards' in st.session_state:
+        st.session_state.flashcards = []
+    if 'flashcard_topic' in st.session_state:
+        st.session_state.flashcard_topic = None
+    # Clear follow-up state
+    if 'follow_up_needed' in st.session_state:
+        st.session_state.follow_up_needed = False
+    if 'original_query' in st.session_state:
+        del st.session_state.original_query
     # Clear input fields
     if 'student_id_input' in st.session_state:
         st.session_state.student_id_input = ""
