@@ -13,21 +13,39 @@ logger = logging.getLogger(__name__)
 
 
 def get_available_courses():
-    """Get list of available courses from courses directory."""
-    from config.settings import COURSES_PATH
+    """Get list of available courses.
+    
+    Reads from course_descriptions in prompts.yaml so the dropdown works
+    on Streamlit Cloud (where the courses/ folder is gitignored).
+    Falls back to scanning the local courses/ directory if config is missing.
+    """
+    import yaml
     
     # Courses to hide from the dropdown (still in vector store but not shown)
     HIDDEN_COURSES = {"Neuroquest"}
     
-    courses_dir = Path(COURSES_PATH)
-    if not courses_dir.exists():
-        return ["Select Course..."]
-    
     courses = ["Select Course..."]
-    for course_folder in courses_dir.iterdir():
-        if course_folder.is_dir() and course_folder.name not in HIDDEN_COURSES:
-            # Use folder name as course name
-            courses.append(course_folder.name)
+    
+    # Primary: read from prompts.yaml (works on Streamlit Cloud)
+    try:
+        config_path = Path(__file__).parent / "config" / "prompts.yaml"
+        with open(config_path, 'r') as f:
+            config = yaml.safe_load(f)
+        course_descriptions = config.get("course_descriptions", {})
+        for course_name in course_descriptions:
+            if course_name not in HIDDEN_COURSES:
+                courses.append(course_name)
+    except Exception as e:
+        logger.warning(f"Could not read course list from prompts.yaml: {e}")
+    
+    # Fallback: scan local courses/ directory
+    if len(courses) <= 1:
+        from config.settings import COURSES_PATH
+        courses_dir = Path(COURSES_PATH)
+        if courses_dir.exists():
+            for course_folder in courses_dir.iterdir():
+                if course_folder.is_dir() and course_folder.name not in HIDDEN_COURSES:
+                    courses.append(course_folder.name)
     
     return courses if len(courses) > 1 else ["Select Course..."]
 
