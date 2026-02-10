@@ -83,6 +83,43 @@ course_descriptions:
     11. Career paths and professional opportunities in the field.
     
     In short, the course gives a broad introduction to how information is created, managed, found, used, and studied, preparing students for more advanced work in the Information Science major.
+  
+  "INFO 6945 - Trends and Issues in Information Science": |
+    INFO 6945 is a doctoral-level seminar at the University of North Texas that focuses on trends, issues, and research in information science and related fields. Through extensive reading, writing, and discussion, the course prepares PhD students for academic careers.
+
+    Key topics covered week by week:
+    1. What is Science and Research
+    2. Science in Periods of Change
+    3. Worldviews and Paradigms (Sociological Paradigms - Burrell and Morgan)
+    4. Conceptual Antecedents of Information Science (DIKW model - Rowley, Diffusion of Innovations - Rogers)
+    5. What is Information Science (Borko, Bates, Social Epistemology, Library and Information Professions)
+    6. Information Science continued
+    7. Frameworks and Philosophies in Information Science
+    8. Information Science Research Approaches Part 1 (Conceptual Essays, Conducting Interviews, Research Methods - Chu)
+    9. Information Science Research Approaches Part 2 (Delphi Method, Ethnography, Mixed Methods)
+    10. Communication of Research and Translating Research to Practice (Collaborative Research, Data Partnerships)
+    11. Future of Information Science and Getting a Job (Evolution of IS, Interdisciplinarity)
+    12. Collaboration, LIS Journal Rankings, and Market Challenges
+
+    Assignments include book reports, a collaborative paper, and a publishable-quality final paper. The course emphasizes critical thinking, scholarly reading and writing, professional presentations, and career development in academics and industry.
+  
+  "LTEC 4510 - Communications in Business, Education and Industry": |
+    LTEC 4510 is an undergraduate course at the University of North Texas designed to develop real-world communication skills for business, education, and industry contexts. The course is 100% online with 4 units (8 modules).
+
+    Key topics and objectives:
+    1. Establishing a framework for business communication
+    2. Interpersonal and group communication
+    3. Planning and preparing spoken and written messages
+    4. Communicating electronically
+    5. Delivering good-news and neutral-news messages
+    6. Delivering bad-news messages
+    7. Delivering persuasive messages
+    8. Creating effective business reports
+    9. Managing data and using graphics
+    10. Organizing and preparing reports and proposals
+    11. Designing and delivering business presentations
+
+    The course uses the BCOM textbook (Lehman, DuFrene, & Walker) and covers Units 1-4 with modules on writing skills, discussion-based learning, career readiness, and assessments including job aids, persuasion exercises, and career outlook reports. It is a writing-intensive course emphasizing grammatically correct, well-organized professional communication.
 
 # Query refinement prompts
 query_refinement:

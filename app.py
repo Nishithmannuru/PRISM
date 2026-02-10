@@ -16,17 +16,20 @@ def get_available_courses():
     """Get list of available courses from courses directory."""
     from config.settings import COURSES_PATH
     
+    # Courses to hide from the dropdown (still in vector store but not shown)
+    HIDDEN_COURSES = {"Neuroquest"}
+    
     courses_dir = Path(COURSES_PATH)
     if not courses_dir.exists():
         return ["Select Course..."]
     
     courses = ["Select Course..."]
     for course_folder in courses_dir.iterdir():
-        if course_folder.is_dir():
+        if course_folder.is_dir() and course_folder.name not in HIDDEN_COURSES:
             # Use folder name as course name
             courses.append(course_folder.name)
     
-    return courses if len(courses) > 1 else ["Select Course...", "Neuroquest"]
+    return courses if len(courses) > 1 else ["Select Course..."]
 
 
 def generate_response(user_query):
