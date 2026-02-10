@@ -1,0 +1,131 @@
+{
+  "INFO4100_021": {
+    "gold_chunk_ids": [
+      "INFO 4100-Introduction to Information Sciences_Module 1- Introduction and Learning Objectives_Module 1- What is Information Science_page1_chunk0",
+      "INFO 4100-Introduction to Information Sciences_Module 1- Introduction and Learning Objectives_Module 1- What is Information Science_page3_chunk0"
+    ],
+    "reason": "These chunks together define Information Science and describe its role in the collection, storage, retrieval, and use of information, covering both theoretical and practical aspects."
+  },
+  "INFO4100_022": {
+    "gold_chunk_ids": [
+      "INFO 4100-Introduction to Information Sciences_Module 1- Introduction and Learning Objectives_Module 1- What is Information Science_page3_chunk0"
+    ],
+    "reason": "This chunk directly describes Information Science as both a theoretical and practical discipline by outlining its theoretical foundations and practical applications."
+  },
+  "INFO4100_023": {
+    "gold_chunk_ids": [
+      "INFO 4100-Introduction to Information Sciences_Module 1- Introduction and Learning Objectives_Module1 Lecture transcript_ts000545 001131_chunk1"
+    ],
+    "reason": "This chunk directly explains the interdisciplinary nature of Information Science by describing how it incorporates ideas and theories from other disciplines like sociology and psychology, which is essential to understanding its multidisciplinary and interdisciplinary aspects."
+  },
+  "INFO4100_024": {
+    "gold_chunk_ids": [
+      "INFO 4100-Introduction to Information Sciences_Module 1- Introduction and Learning Objectives_Module 1- What is Information Science_page1_chunk0",
+      "INFO 4100-Introduction to Information Sciences_Module 1- Introduction and Learning Objectives_Module 1- What is Information Science_page3_chunk0"
+    ],
+    "reason": "These chunks explain the role of Information Science in the collection, storage, retrieval, and use of information, which directly relates to the communication chain of recorded information."
+  },
+  "INFO4100_025": {
+    "gold_chunk_ids": [
+      "INFO 4100-Introduction to Information Sciences_Module 1- Introduction and Learning Objectives_Module 1- What is Information Science_page2_chunk0"
+    ],
+    "reason": "This chunk directly lists the key dimensions through which information can be understood in Information Science, such as computing and data science, and their roles in decision-making and computational processes."
+  },
+  "INFO4100_026": {
+    "gold_chunk_ids": [
+      "INFO 4100-Introduction to Information Sciences_Module 1- Introduction and Learning Objectives_Module 1- What is Information Science_page2_chunk0"
+    ],
+    "reason": "This chunk directly addresses the computing and data science perspective on information, emphasizing its role in computational processes and decision-making through algorithms and technology."
+  },
+  "INFO4100_027": {
+    "gold_chunk_ids": [
+      "INFO 4100-Introduction to Information Sciences_Module 8- Information Management_Module 8- Introduction and Learning Objectives_page3_chunk0",
+      "INFO 4100-Introduction to Information Sciences_Module 8- Information Management_Module 8- Introduction and Learning Objectives_page4_chunk0"
+    ],
+    "reason": "These chunks explain the role of information and communication technologies in managing information by detailing the use of tools like CMS, ERP, CRM, and emerging technologies such as AI and blockchain in optimizing information management practices."
+  },
+  "INFO4100_028": {
+    "gold_chunk_ids": [
+      "INFO 4100-Introduction to Information Sciences_Module 1- Introduction and Learning Objectives_Module 1- What is Information Science_page3_chunk0",
+      "INFO 4100-Introduction to Information Sciences_Module 7- Information Technology and Informatics_Module 7- Introduction and Learning Objectives_page2_chunk0"
+    ],
+    "reason": "These chunks explain how information is understood in the physical and biological sciences by discussing the theoretical foundations of information science and its integration with natural sciences, including computing and data processing."
+  },
+  "INFO4100_029": {
+    "gold_chunk_ids": [
+      "INFO 4100-Introduction to Information Sciences_Module 3- Basic Information Science Concepts_Module 3 Lecture transcript_ts000449 001017_chunk1",
+      "INFO 4100-Introduction to Information Sciences_Module 3- Basic Information Science Concepts_Module 3- Introduction and Learning Objectives_page3_chunk0"
+    ],
+    "reason": "These chunks explain the centrality of documents in Information Science by highlighting their role as stable records and their organization in libraries, which are key to the discipline."
+  },
+  "INFO4100_030": {
+    "gold_chunk_ids": [
+      "INFO 4100-Introduction to Information Sciences_Module 3- Basic Information Science Concepts_Module 3- Introduction and Learning Objectives_page2_chunk0"
+    ],
+    "reason": "This chunk directly defines the progression from data to information, knowledge, and wisdom, explaining each stage in the hierarchy."
+  },
+  "INFO4100_031": {
+    "gold_chunk_ids": [
+      "INFO 4100-Introduction to Information Sciences_Module 3- Basic Information Science Concepts_Module 3 Lecture transcript_ts000449  001017_chunk1"
+    ],
+    "reason": "This chunk discusses the nature of documents, highlighting that they are more than physical objects because they record information, which can be structured or unstructured, and serve as stable records of knowledge."
+  },
+  "INFO4100_032": {
+    "gold_chunk_ids": [
+      "INFO 4100-Introduction to Information Sciences_Module 3- Basic Information Science Concepts_Module 3- Introduction and Learning Objectives_page3_chunk0"
+    ],
+    "reason": "This chunk explains the role of libraries in organizing and facilitating access to information, which directly addresses why libraries are important for the organization and retrieval of information."
+  },
+  "INFO4100_033": {
+    "gold_chunk_ids": [
+      "INFO 4100-Introduction to Information Sciences_Module 8- Information Management_Module 8- Introduction and Learning Objectives_page1_chunk0",
+      "INFO 4100-Introduction to Information Sciences_Module 8- Information Management_Module 8- Introduction and Learning Objectives_page2_chunk0"
+    ],
+    "reason": "These chunks directly list and describe the stages of the information lifecycle, including creation, organization, use, storage, disposal, and archival, which are essential to answer the question."
+  },
+  "INFO4100_034": {
+    "gold_chunk_ids": [
+      "INFO 4100-Introduction to Information Sciences_Module 5- Information Retrieval_Module 5- Introduction and Learning Objectives_page2_chunk0"
+    ],
+    "reason": "This chunk directly lists the core components of an information retrieval system, which are a collection of documents, a system to store and organize documents, and an interface for user interaction."
+  },
+  "INFO4100_035": {
+    "gold_chunk_ids": [
+      "INFO 4100-Introduction to Information Sciences_Module 5- Information Retrieval_Module 5 Lecture transcript_ts000921  001339_chunk2",
+      "INFO 4100-Introduction to Information Sciences_Module 5- Information Retrieval_Module 5- Introduction and Learning Objectives_page1_chunk0"
+    ],
+    "reason": "These chunks explain how user behavior, such as query refinement and interaction with search systems, influences information retrieval models by affecting the search process and outcomes."
+  },
+  "INFO4100_036": {
+    "gold_chunk_ids": [
+      "INFO 4100-Introduction to Information Sciences_Module 5- Information Retrieval_Module 5 Lecture transcript_ts000921 001339_chunk2"
+    ],
+    "reason": "This chunk describes the Berrypicking Model by explaining how users refine their searches iteratively, which contrasts with traditional IR models that assume a linear search process."
+  },
+  "INFO4100_037": {
+    "gold_chunk_ids": [
+      "INFO 4100-Introduction to Information Sciences_Module 5- Information Retrieval_Module 5- Introduction and Learning Objectives_page2_chunk0"
+    ],
+    "reason": "This chunk explains the core elements of information retrieval, including the importance of indexing for organizing documents and facilitating efficient searching, which directly supports the critical role of ranking and indexing in information retrieval systems."
+  },
+  "INFO4100_038": {
+    "gold_chunk_ids": [
+      "INFO 4100-Introduction to Information Sciences_Module 7- Information Technology and Informatics_Module 7- Introduction and Learning Objectives_page2_chunk0"
+    ],
+    "reason": "This chunk directly defines informatics and explains how it integrates knowledge from natural and social sciences, which fully answers the student's question."
+  },
+  "INFO4100_039": {
+    "gold_chunk_ids": [
+      "INFO 4100-Introduction to Information Sciences_Module 7- Information Technology and Informatics_Module 7- Introduction and Learning Objectives_page3_chunk0",
+      "INFO 4100-Introduction to Information Sciences_Module 7- Information Technology and Informatics_Module 7- Introduction and Learning Objectives_page1_chunk0"
+    ],
+    "reason": "These chunks list and describe the major domains of informatics discussed in the course, including health informatics, bioinformatics, social informatics, educational informatics, and business informatics."
+  },
+  "INFO4100_040": {
+    "gold_chunk_ids": [
+      "INFO 4100-Introduction to Information Sciences_Module 9- Information Ethics_Module 9 Lecture transcript_ts000551  001203_chunk1",
+      "INFO 4100-Introduction to Information Sciences_Module 9- Information Ethics_Module 9- Introduction and Learning Objectives_page4_chunk0"
+    ],
+    "reason": "Chunk 1 explains the importance of privacy and transparency in handling information ethically, while chunk 4 highlights the role of ethical practices in maintaining trust and credibility in information professions."
+  }
+}

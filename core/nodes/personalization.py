@@ -48,27 +48,35 @@ class PersonalizationAgent:
             Dictionary with personalized response and citations
         """
         try:
-            degree = user_context.get("degree", "N/A")
-            major = user_context.get("major", "N/A")
-            
-            # Determine complexity level based on degree
-            if "PhD" in degree or "Doctor" in degree:
-                complexity = "advanced"
-                explanation_style = "detailed and technical"
-            elif "Master" in degree:
-                complexity = "intermediate"
-                explanation_style = "balanced with some technical detail"
+            # Eval runner: disable degree/major adaptation when running no_personalization ablation
+            if user_context.get("eval_no_personalization"):
+                degree = "Student"
+                major = "General"
+                complexity = "general"
+                explanation_style = "clear and accessible"
+                major_adaptation = ""
             else:
-                complexity = "introductory"
-                explanation_style = "simple and accessible"
+                degree = user_context.get("degree", "N/A")
+                major = user_context.get("major", "N/A")
+                major_adaptation = ""
             
-            # Adapt to major
-            major_adaptation = ""
-            if major.lower() not in ["computer science", "cs", "engineering"]:
-                major_adaptation = (
-                    f"Since you're a {major} student, I'll explain this in terms you'll find familiar. "
-                    "I'll use simpler language and provide examples that relate to your field of study."
-                )
+            if not user_context.get("eval_no_personalization"):
+                # Determine complexity level based on degree
+                if "PhD" in degree or "Doctor" in degree:
+                    complexity = "advanced"
+                    explanation_style = "detailed and technical"
+                elif "Master" in degree:
+                    complexity = "intermediate"
+                    explanation_style = "balanced with some technical detail"
+                else:
+                    complexity = "introductory"
+                    explanation_style = "simple and accessible"
+                # Adapt to major
+                if major.lower() not in ["computer science", "cs", "engineering"]:
+                    major_adaptation = (
+                        f"Since you're a {major} student, I'll explain this in terms you'll find familiar. "
+                        "I'll use simpler language and provide examples that relate to your field of study."
+                    )
             
             system_prompt = f"""You are an expert teaching assistant for {course_name}.
 You help students understand course material by providing clear, personalized answers.

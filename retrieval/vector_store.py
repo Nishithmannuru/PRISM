@@ -210,6 +210,7 @@ class PineconeVectorStore:
                 match_course = match.metadata.get("course_name", "")
                 logger.debug(f"Match course: '{match_course}', score: {match.score}")
                 result_dict = {
+                    "id": getattr(match, "id", None),
                     "content": match.metadata.get("content", ""),
                     "document_name": match.metadata.get("document_name", ""),
                     "type": match.metadata.get("type", "text"),

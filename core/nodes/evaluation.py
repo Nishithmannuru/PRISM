@@ -708,6 +708,19 @@ def evaluation_node(state: Dict[str, Any]) -> Dict[str, Any]:
     Returns:
         Updated state with evaluation scores
     """
+    # Eval runner: skip internal evaluation when running ablation (no_internal_eval)
+    if state.get("skip_internal_eval"):
+        state["evaluation_passed"] = True
+        state["evaluation_scores"] = {"overall": 1.0}
+        state["refinement_attempts"] = state.get("refinement_attempts", 0)
+        if "response_history" not in state:
+            state["response_history"] = []
+        state["response_history"].append({
+            "response": state.get("final_response", ""),
+            "score": 1.0
+        })
+        return state
+
     agent = EvaluationAgent()
     
     query = state.get("refined_query", state["query"])

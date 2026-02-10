@@ -107,6 +107,7 @@ class PRISMAgent:
                     "evaluation_scores": None,
                     "evaluation_passed": False,
                     "refinement_attempts": 0,
+                    "skip_internal_eval": False,
                     "response_history": [],
                     "a2a_messages": previous_state.values.get("a2a_messages", []) if previous_state.values else []
                 }

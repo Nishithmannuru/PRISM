@@ -46,6 +46,9 @@ class AgentState(TypedDict):
     evaluation_scores: Optional[Dict[str, float]]
     evaluation_passed: bool
     refinement_attempts: int
+
+    # Eval runner: skip internal evaluation/refinement loop when True
+    skip_internal_eval: Optional[bool]
     
     # Response history for logging (response_1, score_1, response_2, score_2, response_3, score_3)
     response_history: List[Dict[str, Any]]  # List of {response: str, score: float}
@@ -58,7 +61,8 @@ def create_initial_state(
     query: str,
     course_name: str,
     user_context: Dict[str, Any],
-    conversation_history: Optional[List[Dict[str, str]]] = None
+    conversation_history: Optional[List[Dict[str, str]]] = None,
+    skip_internal_eval: bool = False,
 ) -> AgentState:
     """Create initial state for the agentic flow."""
     # Convert conversation history to LangChain messages
@@ -102,6 +106,7 @@ def create_initial_state(
         evaluation_scores=None,
         evaluation_passed=False,
         refinement_attempts=0,
+        skip_internal_eval=skip_internal_eval,
         response_history=[],
         a2a_messages=[]
     )

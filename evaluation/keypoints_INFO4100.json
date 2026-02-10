@@ -1,0 +1,263 @@
+{
+  "INFO4100_011": {
+    "required_keypoints": [
+      "AI has enabled personalized search results through user behavior analysis.",
+      "Natural language processing (NLP) has improved query understanding and relevance.",
+      "Machine learning algorithms have enhanced the ranking and retrieval of information.",
+      "AI-driven systems can handle large-scale data and provide real-time search results.",
+      "AI has facilitated the development of voice-activated search interfaces.",
+      "Deep learning models have improved image and video retrieval capabilities.",
+      "AI has enabled semantic search, understanding context and intent beyond keywords."
+    ]
+  },
+  "INFO4100_012": {
+    "required_keypoints": [
+      "Data privacy breaches involving major tech companies",
+      "Algorithmic bias in AI systems leading to discrimination",
+      "Misinformation spread on social media platforms",
+      "Unauthorized surveillance or data collection by governments or corporations",
+      "Cybersecurity incidents affecting critical infrastructure"
+    ]
+  },
+  "INFO4100_013": {
+    "required_keypoints": [
+      "Real-world search engines use click-through data to refine ranking algorithms.",
+      "User engagement metrics like dwell time are analyzed to improve search result relevance.",
+      "Search engines utilize personalization by incorporating user search history and preferences.",
+      "Machine learning models are employed to analyze user behavior and improve ranking.",
+      "Feedback loops from user interactions are used to continuously update and optimize search algorithms."
+    ]
+  },
+  "INFO4100_014": {
+    "required_keypoints": [
+      "Data scientist roles focusing on machine learning and AI",
+      "Privacy and data protection officer positions",
+      "Roles in data ethics and responsible AI",
+      "Positions in cybersecurity and information assurance",
+      "Jobs related to big data analytics and data engineering",
+      "Careers in cloud computing and cloud architecture",
+      "Roles in digital transformation and IT consultancy"
+    ]
+  },
+  "INFO4100_015": {
+    "required_keypoints": [
+      "Predictive analytics for patient outcomes",
+      "Natural language processing for clinical documentation",
+      "AI-driven diagnostic imaging analysis",
+      "Personalized medicine through genomics data analysis",
+      "Remote patient monitoring and telehealth applications",
+      "AI in drug discovery and development",
+      "AI for operational efficiency in healthcare systems"
+    ]
+  },
+  "INFO4100_016": {
+    "required_keypoints": [
+      "Brazil's LGPD (Lei Geral de Prote\u00e7\u00e3o de Dados)",
+      "China's Personal Information Protection Law (PIPL)",
+      "India's Digital Personal Data Protection Bill",
+      "Japan's Act on the Protection of Personal Information (APPI) amendments",
+      "South Africa's Protection of Personal Information Act (POPIA)"
+    ]
+  },
+  "INFO4100_017": {
+    "required_keypoints": [
+      "Modern recommendation systems often use deep learning techniques.",
+      "Contemporary systems leverage large-scale data and real-time processing.",
+      "Current systems frequently incorporate user feedback and behavior for personalization.",
+      "Modern systems utilize collaborative filtering and content-based filtering.",
+      "Recent advancements include the use of hybrid models combining multiple recommendation approaches."
+    ]
+  },
+  "INFO4100_018": {
+    "required_keypoints": [
+      "Cloud storage solutions like AWS S3 and Google Cloud Storage",
+      "Digital preservation software such as Preservica and Archivematica",
+      "Standards and frameworks like OAIS (Open Archival Information System)",
+      "File format validation and migration tools",
+      "Metadata standards like METS and PREMIS",
+      "Version control systems for tracking changes",
+      "Blockchain technology for ensuring data integrity"
+    ]
+  },
+  "INFO4100_019": {
+    "required_keypoints": [
+      "Increased spread of misinformation and disinformation",
+      "Challenges in maintaining user privacy and data protection",
+      "Influence on public opinion and political polarization",
+      "Ethical concerns over algorithmic bias and content moderation",
+      "Impact on digital literacy and critical thinking skills"
+    ]
+  },
+  "INFO4100_020": {
+    "required_keypoints": [
+      "Increased focus on data science and analytics",
+      "Integration of artificial intelligence and machine learning",
+      "Emphasis on data privacy and ethical considerations",
+      "Growth of cloud computing and storage solutions",
+      "Expansion of digital libraries and archives",
+      "Development of user-centered design and human-computer interaction"
+    ]
+  },
+  "INFO4100_021": {
+    "required_keypoints": [
+      "Information Science involves the collection, storage, retrieval, and use of information.",
+      "Information Science explores the representation, organization, and accessibility of knowledge.",
+      "The field includes practical applications like metadata and taxonomy development, records management, and knowledge management.",
+      "Information Science is multidisciplinary and interdisciplinary, connecting to the communication chain of recorded information."
+    ]
+  },
+  "INFO4100_022": {
+    "required_keypoints": [
+      "Information Science explores fundamental questions about the nature of information.",
+      "Theoretical aspects include representation, human interaction, and principles of organization and accessibility of knowledge.",
+      "Practical applications involve the design and implementation of technologies and services.",
+      "Practical aspects include metadata and taxonomy development, records management, and knowledge management."
+    ]
+  },
+  "INFO4100_023": {
+    "required_keypoints": [
+      "Information Science integrates knowledge from multiple disciplines.",
+      "Information Science involves collaboration between different fields.",
+      "Information Science draws on methods and theories from various academic areas."
+    ]
+  },
+  "INFO4100_024": {
+    "required_keypoints": [
+      "Information Science involves the storage, retrieval, and use of information.",
+      "Information Science ensures that recordable knowledge is accessible and manageable across contexts.",
+      "Information Science includes the design and implementation of technologies and services for metadata and taxonomy development.",
+      "Information Science involves records management and archiving for legal, historical, and operational purposes.",
+      "Information Science enhances organizational efficiency through knowledge management.",
+      "Information Science is multidisciplinary and interdisciplinary, connecting to the communication chain of recorded information."
+    ]
+  },
+  "INFO4100_025": {
+    "required_keypoints": [
+      "Information is understood through computing and data science.",
+      "Information intersects with algorithms and technology.",
+      "Information plays a role in decision-making by transforming raw data into insights.",
+      "Practical applications of information include recommendation systems and fraud detection."
+    ]
+  },
+  "INFO4100_026": {
+    "required_keypoints": [
+      "Information is integral to computational processes in computing and data science.",
+      "Information is transformed into actionable insights through algorithms.",
+      "Applications include recommendation systems, fraud detection, and large-scale data analysis."
+    ]
+  },
+  "INFO4100_027": {
+    "required_keypoints": [
+      "Information and communication technologies include tools like CMS, ERP, and CRM for automating workflows and organizing data.",
+      "Governance frameworks ensure compliance with legal, regulatory, and ethical standards in information management.",
+      "Advanced technologies such as AI and blockchain impact information management by optimizing data handling.",
+      "Information management supports organizational objectives like operational efficiency, compliance, and innovation.",
+      "Policies govern data creation, sharing, and disposal to ensure compliance with standards."
+    ]
+  },
+  "INFO4100_028": {
+    "required_keypoints": [
+      "Information science involves the storage, retrieval, and use of information to ensure knowledge is accessible and manageable.",
+      "Theoretical foundations of information science include representation, human interaction with information systems, and principles of knowledge organization.",
+      "Practical applications in information science include metadata and taxonomy development, records management, and knowledge management.",
+      "Informatics integrates knowledge from natural sciences, focusing on technology mechanics like computing and AI.",
+      "Informatics also draws from social sciences to understand human interaction with technology and societal trends.",
+      "Informatics addresses challenges by designing and studying systems that use data and technology."
+    ]
+  },
+  "INFO4100_029": {
+    "required_keypoints": [
+      "Libraries serve as vital repositories of documents in Information Science.",
+      "Libraries use classification systems like Dewey Decimal or Library of Congress for document organization.",
+      "Libraries facilitate access to documents, bridging the gap between information seekers and resources.",
+      "Libraries exemplify principles of information organization, retrieval, and preservation."
+    ]
+  },
+  "INFO4100_030": {
+    "required_keypoints": [
+      "Data is the most basic level, consisting of raw, unprocessed facts or symbols.",
+      "Information is data that has been organized or contextualized to acquire meaning and relevance.",
+      "Knowledge is information that has been interpreted and understood in broader contexts."
+    ]
+  },
+  "INFO4100_031": {
+    "required_keypoints": [
+      "Documents provide a stable and constant record of information.",
+      "Documents can contain structured or unstructured data or information.",
+      "Documents capture information that the author thought was important to share."
+    ]
+  },
+  "INFO4100_032": {
+    "required_keypoints": [
+      "Libraries serve as repositories of documents.",
+      "Libraries use classification systems like Dewey Decimal and Library of Congress for organization.",
+      "Libraries facilitate access to information through physical and digital means."
+    ]
+  },
+  "INFO4100_033": {
+    "required_keypoints": [
+      "Creation/Collection of information",
+      "Organization of information",
+      "Use of information",
+      "Storage of information",
+      "Disposal or archival of information"
+    ]
+  },
+  "INFO4100_034": {
+    "required_keypoints": [
+      "Collection of documents being searched",
+      "System to store and organize documents",
+      "Interface for user interaction",
+      "User and their query"
+    ]
+  },
+  "INFO4100_035": {
+    "required_keypoints": [
+      "User behavior in information retrieval is non-linear and iterative, involving multiple searches and refinements.",
+      "Information retrieval models have evolved to accommodate naturalistic user behaviors observed with internet and large language model interactions.",
+      "The berry-picking model is an example of a model that explains non-linear user search behavior."
+    ]
+  },
+  "INFO4100_036": {
+    "required_keypoints": [
+      "The Berrypicking Model is an information retrieval model.",
+      "The Berrypicking Model involves a dynamic and evolving search process.",
+      "Traditional IR models assume a static query and a single retrieval session.",
+      "In the Berrypicking Model, users modify their queries as they gather information.",
+      "The Berrypicking Model reflects a more iterative and exploratory search behavior."
+    ]
+  },
+  "INFO4100_037": {
+    "required_keypoints": [
+      "Indexing organizes and categorizes documents for efficient searching.",
+      "Ranking determines the order of search results based on relevance.",
+      "Information retrieval systems include a collection of documents to be searched."
+    ]
+  },
+  "INFO4100_038": {
+    "required_keypoints": [
+      "Informatics involves designing, implementing, and studying systems that use data and technology.",
+      "Informatics integrates knowledge from natural sciences, including computing, artificial intelligence, and data processing.",
+      "Informatics integrates knowledge from social sciences, focusing on human interaction with technology and societal trends.",
+      "Informatics addresses challenges by combining technical expertise with understanding of human and societal contexts."
+    ]
+  },
+  "INFO4100_039": {
+    "required_keypoints": [
+      "Health Informatics focuses on improving healthcare delivery and patient outcomes through data-driven solutions.",
+      "Bioinformatics involves using computational methods to analyze biological data, especially in genomics and molecular biology.",
+      "Social Informatics studies how society shapes and is shaped by information technologies.",
+      "Educational Informatics is a major domain of informatics.",
+      "Business Informatics is a major domain of informatics."
+    ]
+  },
+  "INFO4100_040": {
+    "required_keypoints": [
+      "Privacy ensures individuals have control over their information and prevents unauthorized use.",
+      "Accuracy in information management is crucial for maintaining trust and credibility.",
+      "Transparency allows individuals to be aware of how their data is used by organizations and technologies.",
+      "Ethical principles support the creation of organizational policies aligned with best practices and legal requirements.",
+      "Ethical practices in information professions build and maintain user trust, essential for system success."
+    ]
+  }
+}
