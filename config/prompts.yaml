@@ -103,6 +103,28 @@ course_descriptions:
 
     Assignments include book reports, a collaborative paper, and a publishable-quality final paper. The course emphasizes critical thinking, scholarly reading and writing, professional presentations, and career development in academics and industry.
   
+  "ADTA 5340 - Discovery and Learning with Big Data": |
+    ADTA 5340 is a graduate-level course at the University of North Texas focused on discovery and learning with big data. The course covers the fundamentals of data analytics, artificial intelligence, and machine learning, with hands-on applications using Python and scikit-learn.
+
+    Key topics covered:
+    1. Fundamental concepts of data analytics life cycle
+    2. Structured and unstructured data
+    3. Data visualization and exploratory data analysis (EDA) with Python
+    4. Overview of AI, machine learning, and deep learning
+    5. AI and big data analytics (Parts I and II)
+    6. Supervised machine learning with scikit-learn:
+       - Linear regression
+       - Logistic regression
+       - K-nearest neighbors (KNN)
+       - Classification and regression trees (CART)
+       - Random forests (Parts I and II)
+    7. Unsupervised machine learning with scikit-learn:
+       - Clustering with K-means
+       - Other unsupervised learning techniques
+    8. Introduction to the Hadoop framework for big data processing
+
+    The course emphasizes practical data science skills, teaching students how to apply machine learning algorithms to real-world big data problems, evaluate model performance, and understand the full data analytics pipeline from data collection to insight generation.
+
   "LTEC 4510 - Communications in Business, Education and Industry": |
     LTEC 4510 is an undergraduate course at the University of North Texas designed to develop real-world communication skills for business, education, and industry contexts. The course is 100% online with 4 units (8 modules).
 
