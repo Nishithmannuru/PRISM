@@ -1,5 +1,5 @@
 """Script to ingest specific new courses into Pinecone vector store.
-Targets only INFO 6945 and LTEC 4510 (leaves existing courses untouched)."""
+Targets only the courses listed in TARGET_COURSES (leaves existing courses untouched)."""
 
 import os
 import sys
@@ -25,6 +25,7 @@ logger = logging.getLogger(__name__)
 TARGET_COURSES = [
     "INFO 6945 - Trends and Issues in Information Science",
     "LTEC 4510 - Communications in Business, Education and Industry",
+    "ADTA 5340 - Discovery and Learning with Big Data",
 ]
 
 
