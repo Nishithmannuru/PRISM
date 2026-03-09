@@ -1,0 +1,120 @@
+{
+  "answer_relevancy": {
+    "r": 0.6777,
+    "p": 0.0,
+    "n": 2352,
+    "gpt_mean": 0.8742,
+    "sonnet_mean": 0.7598,
+    "delta": 0.1144
+  },
+  "bias": {
+    "r": 0.3546,
+    "p": 0.0,
+    "n": 3170,
+    "gpt_mean": 0.0031,
+    "sonnet_mean": 0.0136,
+    "delta": -0.0105
+  },
+  "coherence": {
+    "r": 0.7737,
+    "p": 0.0,
+    "n": 2352,
+    "gpt_mean": 0.8771,
+    "sonnet_mean": 0.837,
+    "delta": 0.0402
+  },
+  "contextual_precision": {
+    "r": 0.6535,
+    "p": 0.0,
+    "n": 1867,
+    "gpt_mean": 0.6175,
+    "sonnet_mean": 0.4203,
+    "delta": 0.1972
+  },
+  "contextual_recall": {
+    "r": 0.6107,
+    "p": 0.0,
+    "n": 1282,
+    "gpt_mean": 0.5415,
+    "sonnet_mean": 0.2654,
+    "delta": 0.2761
+  },
+  "correctness": {
+    "r": 0.9228,
+    "p": 0.0,
+    "n": 1017,
+    "gpt_mean": 0.5518,
+    "sonnet_mean": 0.4883,
+    "delta": 0.0635
+  },
+  "faithfulness": {
+    "r": -0.1178,
+    "p": 0.0,
+    "n": 1853,
+    "gpt_mean": 0.984,
+    "sonnet_mean": 0.2492,
+    "delta": 0.7348
+  },
+  "hallucination": {
+    "r": 0.3605,
+    "p": 0.0,
+    "n": 1965,
+    "gpt_mean": 0.4166,
+    "sonnet_mean": 0.5572,
+    "delta": -0.1406
+  },
+  "personalization_accuracy": {
+    "r": 0.7371,
+    "p": 0.0,
+    "n": 2352,
+    "gpt_mean": 0.683,
+    "sonnet_mean": 0.4954,
+    "delta": 0.1875
+  },
+  "readability": {
+    "r": 1.0,
+    "p": 0.0,
+    "n": 2352,
+    "gpt_mean": 0.5501,
+    "sonnet_mean": 0.5501,
+    "delta": 0.0
+  },
+  "refusal_correctness": {
+    "r": 0.9674,
+    "p": 0.0,
+    "n": 413,
+    "gpt_mean": 0.8593,
+    "sonnet_mean": 0.7962,
+    "delta": 0.0631
+  },
+  "routing_accuracy": {
+    "r": 1.0,
+    "p": 0.0,
+    "n": 3170,
+    "gpt_mean": 0.4987,
+    "sonnet_mean": 0.4987,
+    "delta": 0.0
+  },
+  "task_completion": {
+    "r": 1.0,
+    "p": 0.0,
+    "n": 3170,
+    "gpt_mean": 0.7484,
+    "sonnet_mean": 0.7484,
+    "delta": 0.0
+  },
+  "tool_correctness": {
+    "r": 1.0,
+    "p": 0.0,
+    "n": 3170,
+    "gpt_mean": 0.591,
+    "sonnet_mean": 0.591,
+    "delta": 0.0
+  },
+  "toxicity": {
+    "r": null,
+    "p": null,
+    "n": 3170,
+    "note": "zero variance"
+  }
+}

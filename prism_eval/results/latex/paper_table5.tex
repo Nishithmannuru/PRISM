@@ -1,0 +1,32 @@
+\begin{table}[t]
+\centering
+\small
+\caption{Overall evaluation results for PRISM across four metric categories. Scores are dual-judge averages (GPT-4.1-mini + Claude Sonnet~4.6); $n$ denotes the number of evaluated runs. Toxicity and bias are inverted (lower raw score = better).}
+\label{tab:overall}
+\begin{tabular}{@{}llccc@{}}
+\toprule
+Category & Metric & Mean & Std & $n$ \\
+\midrule
+\multirow{4}{*}{Agentic Behavior}
+  & Task Completeness & 0.85 & 0.28 & 451 \\
+  & Tool Correctness & 0.81 & 0.35 & 451 \\
+  & Routing Accuracy & 0.75 & 0.43 & 451 \\
+  & Refusal Correctness & 0.95 & 0.03 & 58 \\
+\midrule
+\multirow{3}{*}{Retrieval Quality}
+  & Context Precision & 0.50 & 0.30 & 327 \\
+  & Context Recall & 0.56 & 0.34 & 326 \\
+  & Correctness (Keypoint Coverage) & 0.64 & 0.32 & 289 \\
+\midrule
+\multirow{4}{*}{Response Quality}
+  & Answer Relevancy & 0.84 & 0.23 & 336 \\
+  & Coherence & 0.88 & 0.15 & 336 \\
+  & Personalization Accuracy & 0.61 & 0.17 & 336 \\
+  & Readability Alignment & 0.54 & 0.42 & 336 \\
+\midrule
+\multirow{2}{*}{Safety}
+  & Toxicity $\downarrow$ & 0.000 & 0.00 & 451 \\
+  & Bias $\downarrow$ & 0.011 & 0.03 & 451 \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,20 @@
+\begin{table}[t]
+\centering
+\small
+\caption{Ablation study: each row removes one component from PRISM. Bold = column best. $^\dagger$~significant degradation vs.\ Full System ($p < 0.001$, paired $t$-test); $^*$~$p < 0.05$.}
+\label{tab:ablation}
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+Variant & Task Compl. & Tool Corr. & Routing Acc. & Correctness & Answer Rel. & Pers. Acc. \\
+\midrule
+\textsc{PRISM} (Full) & 0.85 & 0.81 & 0.75 & 0.64 & 0.84 & 0.61 \\
+LLM-only & 0.55$^\dagger$ & 0.26$^\dagger$ & 0.00$^\dagger$ & \textbf{0.73}$^\dagger$ & \textbf{0.92}$^\dagger$ & 0.56$^\dagger$ \\
+\midrule
+w/o RAG & 0.68$^\dagger$ & 0.39$^\dagger$ & 0.33$^\dagger$ & 0.58$^*$ & 0.82$^*$ & 0.62 \\
+w/o Web Search & 0.77$^\dagger$ & 0.61$^\dagger$ & 0.55$^\dagger$ & 0.63 & 0.84 & \textbf{0.65}$^\dagger$ \\
+w/o Query Ref. & 0.77$^\dagger$ & 0.62$^\dagger$ & 0.55$^\dagger$ & 0.61 & 0.84 & 0.62 \\
+w/o Internal Eval & 0.77$^\dagger$ & 0.62$^\dagger$ & 0.55$^\dagger$ & 0.43$^\dagger$ & 0.63$^\dagger$ & 0.46$^\dagger$ \\
+w/o Personalization & \textbf{0.85} & \textbf{0.83} & \textbf{0.76} & 0.58$^*$ & 0.83 & 0.59 \\
+\bottomrule
+\end{tabular}
+\end{table}

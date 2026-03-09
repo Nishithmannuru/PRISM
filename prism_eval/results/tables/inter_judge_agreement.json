@@ -1,0 +1,82 @@
+{
+  "personalization_accuracy": {
+    "pearson_r": 0.8509,
+    "p_value": 0.0,
+    "n": 220
+  },
+  "routing_accuracy": {
+    "pearson_r": 1.0,
+    "p_value": 0.0,
+    "n": 1985
+  },
+  "readability": {
+    "pearson_r": 1.0,
+    "p_value": 0.0,
+    "n": 1465
+  },
+  "task_completion": {
+    "pearson_r": 1.0,
+    "p_value": 0.0,
+    "n": 1985
+  },
+  "tool_correctness": {
+    "pearson_r": 1.0,
+    "p_value": 0.0,
+    "n": 1985
+  },
+  "coherence": {
+    "pearson_r": 0.8837,
+    "p_value": 0.0,
+    "n": 164
+  },
+  "answer_relevancy": {
+    "pearson_r": 0.9633,
+    "p_value": 0.0,
+    "n": 60
+  },
+  "toxicity": {
+    "pearson_r": NaN,
+    "p_value": NaN,
+    "n": 76
+  },
+  "bias": {
+    "pearson_r": -0.0123,
+    "p_value": 0.912344,
+    "n": 82
+  },
+  "hallucination": {
+    "pearson_r": 0.2594,
+    "p_value": 0.331996,
+    "n": 16
+  },
+  "contextual_recall": {
+    "pearson_r": 0.8283,
+    "p_value": 0.00047,
+    "n": 13
+  },
+  "contextual_precision": {
+    "pearson_r": 0.0975,
+    "p_value": 0.788801,
+    "n": 10
+  },
+  "correctness": {
+    "pearson_r": NaN,
+    "p_value": NaN,
+    "n": 3
+  },
+  "clarification_quality": {
+    "pearson_r": NaN,
+    "p_value": NaN,
+    "n": 251
+  },
+  "refusal_correctness": {
+    "pearson_r": 0.8817,
+    "p_value": 0.0,
+    "n": 35
+  },
+  "faithfulness": {
+    "pearson_r": NaN,
+    "p_value": NaN,
+    "n": 4
+  }
+}

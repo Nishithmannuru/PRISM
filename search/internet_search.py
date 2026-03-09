@@ -21,23 +21,28 @@ class InternetSearchAgent:
         """Initialize the internet search agent."""
         # Try to load from environment, also check dotenv
         from dotenv import load_dotenv
-        load_dotenv()
-        
+        load_dotenv(override=True)
+
         self.api_key = os.environ.get("TAVILY_API_KEY") or os.getenv("TAVILY_API_KEY")
+        self.fallback_key = os.environ.get("FALLBACK_TAVILY_API_KEY") or os.getenv("FALLBACK_TAVILY_API_KEY")
         if not self.api_key:
             logger.warning("TAVILY_API_KEY not found in environment variables. Web search will be disabled.")
             logger.warning("Please ensure TAVILY_API_KEY is set in your .env file")
             self.client = None
+            self.fallback_client = None
         elif not TAVILY_AVAILABLE:
             logger.warning("tavily-python package not installed. Web search will be disabled.")
             self.client = None
+            self.fallback_client = None
         else:
             try:
                 self.client = TavilyClient(api_key=self.api_key)
+                self.fallback_client = TavilyClient(api_key=self.fallback_key) if self.fallback_key else None
                 logger.info("Tavily API client initialized successfully")
             except Exception as e:
                 logger.error(f"Error initializing Tavily client: {e}")
                 self.client = None
+                self.fallback_client = None
     
     def search(
         self,
@@ -103,8 +108,15 @@ class InternetSearchAgent:
             logger.info(f"Searching Tavily with query: '{enhanced_query}'")
             logger.info(f"Search params: max_results={search_params['max_results']}, search_depth={search_params['search_depth']}")
             
-            search_response = self.client.search(**search_params)
-            
+            try:
+                search_response = self.client.search(**search_params)
+            except Exception as primary_err:
+                if self.fallback_client and ("limit" in str(primary_err).lower() or "quota" in str(primary_err).lower() or "exceed" in str(primary_err).lower()):
+                    logger.warning(f"Primary Tavily key hit limit, using fallback key")
+                    search_response = self.fallback_client.search(**search_params)
+                else:
+                    raise
+
             logger.info(f"Tavily search response keys: {list(search_response.keys()) if isinstance(search_response, dict) else 'Not a dict'}")
             
             # Format results

@@ -1,0 +1,18 @@
+\begin{table}[htbp]
+\centering
+\caption{Weighted composite scores across system variants. Significance tested via paired $t$-test against Full System. $d$ = Cohen's $d$ effect size.}
+\label{tab:composite}
+\begin{tabular}{lcccccc}
+\toprule
+Variant & Composite & Orch. & RAG & Resp. & Safety & $p$-value \\
+\midrule
+PRISM (Full) & \textbf{0.683} & 0.866 & 0.526 & 0.733 & 0.795 & --- \\
+Baseline (GPT-4o) & 0.406 & 0.180 & 0.290 & 0.763 & 0.798 & $<$0.001*** \\
+$-$ RAG & 0.575 & 0.400 & 0.525 & 0.713 & 0.796 & $<$0.001*** \\
+$-$ Web Search & 0.640 & 0.639 & 0.519 & 0.760 & 0.796 & $<$0.001*** \\
+$-$ Query Refinement & 0.628 & 0.649 & 0.518 & 0.721 & 0.796 & $<$0.001*** \\
+$-$ Internal Eval & 0.593 & 0.646 & 0.472 & 0.601 & 0.795 & $<$0.001*** \\
+$-$ Personalization & 0.681 & 0.878 & 0.507 & 0.726 & 0.797 & 0.581 \\
+\bottomrule
+\end{tabular}
+\end{table}

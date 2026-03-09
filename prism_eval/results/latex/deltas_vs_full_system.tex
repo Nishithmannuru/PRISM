@@ -1,0 +1,17 @@
+\begin{table}[htbp]
+\centering
+\caption{Performance Delta vs Full System (positive = full system better)}
+\label{tab:deltas}
+\begin{tabular}{lcccccccc}
+\toprule
+Variant & Faithfulness & Answer Relev & Correctness & Hallucinatio & Routing Accu & Tool Correct & Coherence & Readability \\
+\midrule
+baseline & — & -0.078 & -0.089 & — & +0.752 & +0.552 & -0.070 & -0.004 \\
+no\_internal\_eval & +0.021 & +0.207 & +0.207 & -0.006 & +0.199 & +0.199 & +0.213 & -0.099 \\
+no\_personalization & -0.115 & +0.012 & +0.057 & +0.201 & -0.011 & -0.011 & +0.012 & -0.017 \\
+no\_query\_refinement & +0.021 & -0.002 & +0.032 & +0.016 & +0.199 & +0.197 & +0.011 & +0.064 \\
+no\_rag & +0.001 & +0.024 & +0.054 & +0.236 & +0.422 & +0.422 & +0.016 & +0.054 \\
+no\_web\_search & -0.002 & -0.000 & +0.003 & +0.018 & +0.205 & +0.205 & -0.009 & -0.068 \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,20 @@
+\begin{table}[htbp]
+\centering
+\caption{Per-metric comparison: PRISM Full System vs Baseline (GPT-4o). Paired $t$-test with Cohen's $d$ effect size. Bold indicates the winner at $p < 0.05$.}
+\label{tab:per_metric}
+\begin{tabular}{lcccccc}
+\toprule
+Metric & PRISM & Baseline & $\Delta$ & Cohen's $d$ & $p$-value & Winner \\
+\midrule
+Routing Accuracy & \textbf{0.752} & 0.000 & +0.752 & 1.74 & $<$0.001*** & PRISM \\
+Tool Correctness & \textbf{0.815} & 0.255 & +0.560 & 0.96 & $<$0.001*** & PRISM \\
+Task Completion & \textbf{0.850} & 0.549 & +0.301 & 1.74 & $<$0.001*** & PRISM \\
+Refusal Correctness & \textbf{0.948} & 0.106 & +0.842 & 4.58 & $<$0.001*** & PRISM \\
+Answer Relevancy & 0.840 & \textbf{0.918} & -0.078 & -0.38 & $<$0.001*** & Baseline \\
+Coherence & 0.882 & \textbf{0.952} & -0.070 & -0.47 & $<$0.001*** & Baseline \\
+Correctness & 0.634 & \textbf{0.709} & -0.075 & -0.29 & $<$0.001*** & Baseline \\
+Personalization Accuracy & \textbf{0.610} & 0.564 & +0.046 & 0.30 & $<$0.001*** & PRISM \\
+Readability & 0.540 & 0.544 & -0.004 & -0.01 & 0.851 & --- \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,19 @@
+\begin{table}[t]
+\centering
+\small
+\caption{Inter-judge agreement between GPT-4.1-mini (multi-step decomposed scoring) and Claude Sonnet~4.6 (single-prompt holistic scoring). Heuristic metrics (task completeness, tool correctness, routing accuracy, readability) are deterministic and omitted ($r = 1.0$). All correlations significant at $p < 0.001$.}
+\label{tab:judges}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Metric & Pearson $r$ & GPT Mean & Sonnet Mean & $n$ \\
+\midrule
+Correctness & 0.923 & 0.552 & 0.488 & 1017 \\
+Refusal Correctness & 0.967 & 0.859 & 0.796 & 413 \\
+Coherence & 0.774 & 0.877 & 0.837 & 2352 \\
+Personalization Acc. & 0.737 & 0.683 & 0.495 & 2352 \\
+Answer Relevancy & 0.678 & 0.874 & 0.760 & 2352 \\
+Ctx Precision & 0.653 & 0.618 & 0.420 & 1867 \\
+Ctx Recall & 0.611 & 0.541 & 0.265 & 1282 \\
+\bottomrule
+\end{tabular}
+\end{table}

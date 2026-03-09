@@ -1,0 +1,113 @@
+{
+  "timestamp": "2026-03-09 14:18:05",
+  "total_runs": 3170,
+  "variants": [
+    "baseline",
+    "full_system",
+    "no_internal_eval",
+    "no_personalization",
+    "no_query_refinement",
+    "no_rag",
+    "no_web_search"
+  ],
+  "profiles": [
+    "masters",
+    "phd",
+    "undergrad"
+  ],
+  "courses": [
+    "ADTA 5340 - Discovery and Learning with Big Data",
+    "INFO 4100-Introduction to Information Sciences",
+    "INFO 6945 - Trends and Issues in Information Science",
+    "LTEC 4510 - Communications in Business, Education and Industry"
+  ],
+  "categories": [
+    "course_based",
+    "multi_hop",
+    "out_of_scope",
+    "vague",
+    "web_required"
+  ],
+  "overall_means": {
+    "routing_accuracy": {
+      "mean": 0.4987,
+      "std": 0.5,
+      "n": 3170
+    },
+    "toxicity": {
+      "mean": 0.0001,
+      "std": 0.0012,
+      "n": 3170
+    },
+    "bias": {
+      "mean": 0.0083,
+      "std": 0.0284,
+      "n": 3170
+    },
+    "correctness": {
+      "mean": 0.597,
+      "std": 0.3213,
+      "n": 2062
+    },
+    "answer_relevancy": {
+      "mean": 0.817,
+      "std": 0.2396,
+      "n": 2352
+    },
+    "personalization_accuracy": {
+      "mean": 0.5892,
+      "std": 0.1799,
+      "n": 2352
+    },
+    "coherence": {
+      "mean": 0.857,
+      "std": 0.1839,
+      "n": 2352
+    },
+    "readability": {
+      "mean": 0.5501,
+      "std": 0.4195,
+      "n": 2352
+    },
+    "tool_correctness": {
+      "mean": 0.591,
+      "std": 0.4632,
+      "n": 3170
+    },
+    "task_completion": {
+      "mean": 0.7484,
+      "std": 0.2797,
+      "n": 3170
+    },
+    "hallucination": {
+      "mean": 0.486,
+      "std": 0.3094,
+      "n": 1970
+    },
+    "faithfulness": {
+      "mean": 0.6358,
+      "std": 0.1531,
+      "n": 1970
+    },
+    "contextual_precision": {
+      "mean": 0.5244,
+      "std": 0.3104,
+      "n": 1969
+    },
+    "contextual_recall": {
+      "mean": 0.5361,
+      "std": 0.3393,
+      "n": 1962
+    },
+    "refusal_correctness": {
+      "mean": 0.8278,
+      "std": 0.3025,
+      "n": 413
+    },
+    "clarification_quality": {
+      "mean": 0.0,
+      "std": 0.0,
+      "n": 405
+    }
+  }
+}

@@ -1,0 +1,18 @@
+\begin{table}[htbp]
+\centering
+\caption{Inter-Judge Agreement: GPT-4.1-mini (Multi-Step) vs.\ Claude Sonnet 4.6 (Single-Prompt). Pearson $r$ with sample size. Heuristic metrics (tool correctness, task completeness, routing accuracy, readability) are deterministic and identical across judges ($r = 1.0$).}
+\label{tab:judges}
+\begin{tabular}{lcccc}
+\toprule
+Metric & Pearson $r$ & GPT Mean & Sonnet Mean & $n$ \\
+\midrule
+Correctness & 0.923 & 0.552 & 0.488 & 1017 \\
+Refusal Correctness & 0.967 & 0.859 & 0.796 & 413 \\
+Coherence & 0.774 & 0.877 & 0.837 & 2352 \\
+Personalization Accuracy & 0.737 & 0.683 & 0.495 & 2352 \\
+Answer Relevancy & 0.678 & 0.874 & 0.760 & 2352 \\
+Contextual Precision & 0.653 & 0.618 & 0.420 & 1867 \\
+Contextual Recall & 0.611 & 0.541 & 0.265 & 1282 \\
+\bottomrule
+\end{tabular}
+\end{table}

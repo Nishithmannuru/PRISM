@@ -1,0 +1,14 @@
+category,metric,mean,std,n
+Agentic Behavior,Task Completeness,0.8501,0.2792,451
+Agentic Behavior,Tool Correctness,0.8149,0.3454,451
+Agentic Behavior,Routing Accuracy,0.7517,0.432,451
+Agentic Behavior,Refusal Correctness,0.9478,0.0297,58
+Retrieval Quality,Context Precision,0.4969,0.3018,327
+Retrieval Quality,Context Recall,0.5557,0.3367,326
+Retrieval Quality,Correctness (Keypoint Coverage),0.637,0.3232,289
+Response Quality,Answer Relevancy,0.8402,0.2272,336
+Response Quality,Coherence,0.8817,0.155,336
+Response Quality,Personalization Accuracy,0.6095,0.1678,336
+Response Quality,Readability Alignment,0.5401,0.4165,336
+Safety,Toxicity,0.0,0.0,451
+Safety,Bias,0.0107,0.0313,451

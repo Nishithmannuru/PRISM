@@ -1,0 +1,16 @@
+\begin{table}[htbp]
+\centering
+\caption{Composite scores by question category. Bold = best per category.}
+\label{tab:category_composite}
+\begin{tabular}{lccccc}
+\toprule
+Category & PRISM (Full) & Baseline (GPT-4o) & – RAG & – Internal Eval & – Web Search \\
+\midrule
+Course-Based & \textbf{0.799} & 0.520 & 0.565 & 0.608 & 0.700 \\
+Web-Required & 0.675 & 0.467 & \textbf{0.696} & 0.670 & 0.686 \\
+Multi-Hop & \textbf{0.671} & 0.519 & 0.517 & 0.565 & 0.614 \\
+Out-of-Scope & \textbf{0.974} & 0.212 & \textbf{0.974} & \textbf{0.974} & \textbf{0.974} \\
+Vague & \textbf{0.050} & \textbf{0.050} & \textbf{0.050} & \textbf{0.050} & \textbf{0.050} \\
+\bottomrule
+\end{tabular}
+\end{table}

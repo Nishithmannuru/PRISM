@@ -1,0 +1,10 @@
+metric,prism_mean,baseline_mean,delta,cohens_d,p_value,significance,winner
+routing_accuracy,0.7517,0.0,0.7517,1.7398,0.0,***,PRISM
+tool_correctness,0.8149,0.255,0.5599,0.9585,0.0,***,PRISM
+task_completion,0.8501,0.5494,0.3007,1.7398,0.0,***,PRISM
+refusal_correctness,0.9478,0.1056,0.8422,4.5826,0.0,***,PRISM
+answer_relevancy,0.8402,0.9184,-0.0782,-0.3771,0.0,***,Baseline
+coherence,0.8817,0.9521,-0.0704,-0.4723,0.0,***,Baseline
+correctness,0.6341,0.7089,-0.0749,-0.2902,4e-06,***,Baseline
+personalization_accuracy,0.6095,0.564,0.0455,0.3036,0.0,***,PRISM
+readability,0.5401,0.5441,-0.0041,-0.0103,0.851252,ns,Tie
